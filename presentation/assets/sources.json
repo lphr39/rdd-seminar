@@ -1,0 +1,67 @@
+[
+  {
+    "file": "alcohol_drinking.png",
+    "source": "https://mixtape.scunning.com/graphics/alcohol_drinking1.png"
+  },
+  {
+    "file": "alcohol_mortality.png",
+    "source": "https://mixtape.scunning.com/graphics/alcohol_mortality.png"
+  },
+  {
+    "file": "sharp_fuzzy.svg",
+    "source": "https://mixtape.scunning.com/06-Regression_Discontinuity_files/mediabag/klaauw2002.svg"
+  },
+  {
+    "file": "potential_homogeneous.svg",
+    "source": "https://mixtape.scunning.com/06-Regression_Discontinuity_files/mediabag/rdd_po_homog.svg"
+  },
+  {
+    "file": "potential_heterogeneous.svg",
+    "source": "https://mixtape.scunning.com/06-Regression_Discontinuity_files/mediabag/rdd_po_het.svg"
+  },
+  {
+    "file": "smoothness.png",
+    "source": "https://mixtape.scunning.com/graphics/rdd_smoothness.png"
+  },
+  {
+    "file": "observed_jump.png",
+    "source": "https://mixtape.scunning.com/graphics/rdd_smoothness2.png"
+  },
+  {
+    "file": "misspecification.png",
+    "source": "https://mixtape.scunning.com/graphics/rdd_quad.png"
+  },
+  {
+    "file": "boundary_bias.svg",
+    "source": "https://mixtape.scunning.com/06-Regression_Discontinuity_files/mediabag/parallel_bins_adjusted_x_values.svg"
+  },
+  {
+    "file": "density.jpg",
+    "source": "https://mixtape.scunning.com/graphics/mccrary_density_test.jpg"
+  },
+  {
+    "file": "election_balance.jpg",
+    "source": "https://mixtape.scunning.com/graphics/lee_moretti_butler_fig3.jpg"
+  },
+  {
+    "file": "birthweight_heaping.jpg",
+    "source": "https://mixtape.scunning.com/graphics/heaping.jpg"
+  },
+  {
+    "file": "medicare_employment.jpg",
+    "source": "https://mixtape.scunning.com/graphics/EmploymentRatesMenbyAge.jpg"
+  },
+  {
+    "file": "medicare_hospital.jpg",
+    "source": "https://mixtape.scunning.com/graphics/cardetal2008_fig3.jpg"
+  },
+  {
+    "file": "hoekstra_firststage.jpg",
+    "source": "https://mixtape.scunning.com/graphics/rdd_hoekstra1.jpg"
+  },
+  {
+    "file": "smoothness_observed_counterfactual.pdf",
+    "source": "../Resources/rdd-smoothness-and-hoekstra.pdf",
+    "page": 3
+  }
+]

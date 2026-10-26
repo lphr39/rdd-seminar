@@ -1,0 +1,720 @@
+\pdfminorversion=7
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,microtype}
+\usepackage[english]{babel}
+\usepackage{csquotes,amsmath,amssymb,booktabs,array,listings}
+\usepackage{appendixnumberbeamer}
+\usetheme{Madrid}
+\usefonttheme{serif}
+\useoutertheme[subsection=false]{miniframes}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamercolor{alerted text}{fg=red!70!black}
+\setbeamerfont{section in head/foot}{size=\scriptsize}
+\setbeamertemplate{mini frame in other section}{\usebeamertemplate{mini frame in current subsection}}
+\setbeamertemplate{mini frame in other subsection}{\usebeamertemplate{mini frame in current subsection}}
+\setbeamertemplate{footline}{%
+ \hfill\usebeamerfont{page number in head/foot}\usebeamercolor[fg]{structure}%
+ \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}\vskip3pt}
+\graphicspath{{assets/}{practical/hansen_results/}}
+\lstdefinestyle{stata}{basicstyle=\ttfamily\footnotesize,breaklines=true,
+ columns=fullflexible,keepspaces=true,showstringspaces=false,
+ aboveskip=0.5em,belowskip=0.5em,commentstyle=\color{black!55}}
+\lstset{style=stata}
+\usepackage[backend=biber,style=authoryear,maxcitenames=2,mincitenames=1,
+ maxbibnames=99,giveninits=true,uniquename=false,uniquelist=false,
+ doi=false,url=false,isbn=false,eprint=false]{biblatex}
+\addbibresource{references.bib}
+\DeclareDelimFormat{nameyeardelim}{\addcomma\space}
+\DeclareDelimFormat[textcite]{nameyeardelim}{\addspace}
+\AtEveryBibitem{\clearlist{language}\clearfield{month}}
+\setbeamertemplate{bibliography item}{}
+\renewcommand*{\bibfont}{\scriptsize}
+\newcommand{\slidecite}[1]{{\footnotesize\color{black!60}\parencite{#1}}}
+\newcommand{\slidetextcite}[1]{{\footnotesize\color{black!60}\textcite{#1}}}
+\newcommand{\source}[1]{\par\vspace{0.3em}{\scriptsize\color{black!60}#1}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\ind}{\mathbf{1}}
+\newcommand{\graph}[2][0.73]{\centering\includegraphics[width=0.96\textwidth,height=#1\textheight,keepaspectratio]{#2}\par}
+\title[Regression Discontinuity]{Regression Discontinuity Designs}
+\subtitle{Sharp and fuzzy designs, with a Stata exercise}
+\author[Luis P. de la Horra]{Luis P.\ de la Horra}
+\institute{Universidad de Valladolid}
+\date{RDD seminar}
+
+\begin{document}
+\begin{frame}[plain]
+ \titlepage
+ \vspace{-0.5em}\centering
+ {\footnotesize Based on Scott Cunningham's \emph{Causal Inference: The Remix} (second edition)}
+\end{frame}
+
+\section{Intuition}\subsection{Overview}
+\begin{frame}{Seminar outline}
+ \begin{enumerate}
+  \setlength{\itemsep}{0.6em}
+  \item Recognize a cutoff-based research design
+  \item Understand continuity and the sharp RD estimand
+  \item Estimate the discontinuity and assess credibility
+  \item Connect fuzzy RD to instrumental variables
+  \item Apply the method to DUI sanctions and recidivism in Stata
+ \end{enumerate}
+ \vspace{0.6em}
+ \textbf{Presentation:} 50--55 minutes \qquad \textbf{Exercise:} 20 minutes
+ \source{Reading: Cunningham, Chapters 6 and 7 (fuzzy RDD subsection) \slidecite{cunningham}}
+\end{frame}
+
+\begin{frame}{A rule can create a research design}
+ \begin{itemize}\setlength{\itemsep}{0.7em}
+  \item A score $X_i$ determines eligibility at a known threshold $c$.
+  \item Compare the outcome \emph{limits} immediately above and below $c$.
+  \item The score can predict outcomes strongly; identification rests on what happens \emph{at the cutoff}.
+ \end{itemize}
+ \vspace{0.7em}
+ \begin{tabular}{@{}ll@{}}\toprule
+  Assignment rule & Application in the manual \\\midrule
+  Test-score threshold & Merit awards \slidecite{thistlethwaite1960}\\
+  Enrollment thresholds & Class size \slidecite{angristlavy1999}\\
+  School boundaries & Housing prices \slidecite{black1999}\\\bottomrule
+ \end{tabular}\par
+ \source{Cunningham, \S6.1; overview: \slidetextcite{leelemieux2010}}
+\end{frame}
+
+\begin{frame}{Legal access to alcohol at age 21}
+ \graph[0.68]{alcohol_drinking.png}
+ {\small Dots: age-bin averages. Curves: separate fits. The jump occurs at age 21.}
+ \source{Cunningham, Figure 6.2; original study: \slidetextcite{carpenter2009}}
+\end{frame}
+
+\begin{frame}{Mortality at the same threshold}
+ \graph[0.67]{alcohol_mortality.png}
+ {\small Mortality also jumps. The sharp treatment is \textbf{legal access}, not alcohol consumed.}
+ \source{Cunningham, Figure 6.3; \slidecite{carpenter2009}}
+\end{frame}
+
+\begin{frame}{Sharp and fuzzy assignment}
+ \begin{columns}[T]
+  \begin{column}{0.59\textwidth}\graph[0.65]{sharp_fuzzy.pdf}\end{column}
+  \begin{column}{0.38\textwidth}
+   \textbf{Sharp RD}\\[0.4em]
+   $D_i=\ind\{X_i\geq c\}$\\[1em]
+   Treatment changes from 0 to 1.\\[1.2em]
+   \textbf{Fuzzy RD}\\[0.4em]
+   $\Pr(D_i=1\mid X_i=x)$ jumps, with imperfect take-up.
+  \end{column}
+ \end{columns}
+ \source{Cunningham, Figure 6.4; adapted there from \slidetextcite{vanderklaauw2002}}
+\end{frame}
+
+\section{Sharp RD}\subsection{Identification}
+\begin{frame}{Potential outcomes and observed outcomes}
+ \begin{itemize}\setlength{\itemsep}{0.6em}
+  \item Define treatment first: $D_i=1$ means receiving the intervention.
+  \item $Y_i(1)$ and $Y_i(0)$ exist for every unit, whatever its actual treatment.
+  \item We observe only $Y_i=D_iY_i(1)+(1-D_i)Y_i(0)$.
+ \end{itemize}
+ \vspace{0.6em}
+ \begin{tabular}{@{}lll@{}}\toprule
+  Sharp assignment & Observed & Missing counterfactual \\\midrule
+  $X_i<c$ & $Y_i(0)$ & $Y_i(1)$ \\
+  $X_i\geq c$ & $Y_i(1)$ & $Y_i(0)$ \\\bottomrule
+ \end{tabular}\par
+ \vspace{0.6em}
+ No treated and untreated units share the same score in a sharp design.
+ \source{Cunningham, \S6.2; supplied smoothness handout, pp. 1--3 \slidecite{cunningham}}
+\end{frame}
+
+\begin{frame}{Two potential-outcome curves}
+ \begin{columns}[T]
+  \begin{column}{0.68\textwidth}\graph[0.68]{smoothness.png}\end{column}
+  \begin{column}{0.29\textwidth}\small
+   $m_d(x)=\E[Y_i(d)\mid X_i=x]$\\[0.8em]
+   Hold treatment fixed as you move horizontally.\\[0.8em]
+   Each curve describes group averages, not one person's trajectory.\\[0.8em]
+   Both schedules are visible here because the data are simulated.
+  \end{column}
+ \end{columns}
+ \source{Cunningham, Figure 6.7; supplied smoothness handout \slidecite{hahn2001}}
+\end{frame}
+
+\begin{frame}{The continuity assumption}
+ For each fixed treatment status $d\in\{0,1\}$:
+ \[
+  \lim_{x\to c^-}\E[Y_i(d)\mid X_i=x]
+  =\lim_{x\to c^+}\E[Y_i(d)\mid X_i=x]=m_d(c).
+ \]
+ \begin{block}{Read horizontally}
+  Applicants on opposite sides approach the same mean outcome under the \emph{same hypothetical treatment status}.
+ \end{block}
+ \begin{itemize}\setlength{\itemsep}{0.45em}
+  \item Each potential-outcome mean is continuous at $c$.
+  \item Curves may slope, bend, and have different slopes.
+  \item Continuity neither implies a zero treatment effect nor equal individual outcomes.
+ \end{itemize}
+ \source{Cunningham, \S6.2; supplied handout, p. 2 \slidecite{hahn2001}}
+\end{frame}
+
+\begin{frame}{Why the observed outcome can jump}
+ \graph[0.60]{smoothness_observed_counterfactual.pdf}
+ \begin{itemize}\setlength{\itemsep}{0.3em}
+  \item The observed mean follows $m_0(x)$ below $c$ and $m_1(x)$ above $c$.
+  \item The vertical gap at $c$ is $m_1(c)-m_0(c)$.
+ \end{itemize}
+ \source{Supplied smoothness handout, p. 3; schematic values are illustrative \slidecite{hahn2001}}
+\end{frame}
+
+\begin{frame}{Identification at the cutoff}
+ \begin{align*}
+  \tau_{\mathrm{SRD}}(c)
+   &=\E[Y_i(1)-Y_i(0)\mid X_i=c]\\[0.6em]
+   &=\underbrace{\lim_{x\to c^+}\E[Y_i\mid X_i=x]}_{m_1(c)}
+     -\underbrace{\lim_{x\to c^-}\E[Y_i\mid X_i=x]}_{m_0(c)}.
+ \end{align*}
+ \begin{itemize}\setlength{\itemsep}{0.6em}
+  \item Assignment tells us which outcome we observe on each side.
+  \item Continuity connects those observed limits to the missing means at $c$.
+  \item This identifies the \textbf{ATE at the cutoff}.
+ \end{itemize}
+ \source{Cunningham, \S6.2; \slidecite{hahn2001,imbenslemieux2008}}
+\end{frame}
+
+\begin{frame}{A local effect need not generalize}
+ \graph[0.65]{potential_heterogeneous.pdf}
+ {\small Continuous curves can imply different effects at different scores. RD identifies the gap at $c$.}
+ \source{Cunningham, Figure 6.6 \slidecite{cunningham,leelemieux2010}}
+\end{frame}
+
+\begin{frame}{A university example for the counterfactuals}
+ \textbf{Teaching simplification:} everyone above the admission cutoff attends the flagship.
+ \[
+  X_i=\mathrm{SAT}_i-\mathrm{required\ SAT}(\mathrm{GPA}_i,\mathrm{cohort}_i),\qquad c=0.
+ \]
+ \begin{itemize}\setlength{\itemsep}{0.65em}
+  \item $Y_i(1)$: earnings if applicant $i$ attends the flagship.
+  \item $Y_i(0)$: earnings if the same applicant does not attend it; another university is possible.
+  \item Imagine \emph{nobody} attended: mean earnings should pass continuously through zero.
+  \item Imagine \emph{everybody} attended: that mean should also pass continuously through zero.
+ \end{itemize}
+ \source{Supplied handout, pp. 4--5. The actual study is fuzzy RD \slidecite{hoekstra2009}}
+\end{frame}
+
+\begin{frame}{Continuity with a positive treatment effect}
+ \centering
+ \renewcommand{\arraystretch}{1.4}
+ \begin{tabular}{@{}lrr@{}}\toprule
+  Adjusted SAT & Without flagship & With flagship\\\midrule
+  $-10$ & \$39,650 (observed) & \$49,500 (missing)\\
+  $0$ & \$40,000 (missing) & \$50,000 (observed)\\
+  $+10$ & \$40,350 (missing) & \$50,500 (observed)\\\bottomrule
+ \end{tabular}\par
+ \vspace{1em}\raggedright
+ Both schedules are continuous. The cutoff effect is \textbf{\$10,000}.
+ \vspace{0.7em}
+ The observed difference between $-10$ and $+10$ is \$10,850: it also reflects differences associated with score.
+ \source{Invented dollar amounts from the supplied handout. Hoekstra analyzes log earnings; these are not paper estimates \slidecite{hoekstra2009}}
+\end{frame}
+
+\section{Estimation}\subsection{Methods}
+\begin{frame}[fragile]{OLS with separate slopes}
+ Center the running variable: $x_i=X_i-c$.
+ \[
+  Y_i=\alpha+\tau D_i+\beta x_i+\gamma D_ix_i+\varepsilon_i.
+ \]
+ \begin{itemize}\setlength{\itemsep}{0.4em}
+  \item The left intercept is $\alpha$; the right intercept is $\alpha+\tau$.
+  \item The slopes are $\beta$ and $\beta+\gamma$.
+  \item $\hat\tau$ is the fitted gap \emph{at the cutoff}.
+ \end{itemize}
+ \begin{lstlisting}
+generate double x_c = score - cutoff
+generate byte treated = (score >= cutoff) if !missing(score)
+regress outcome i.treated##c.x_c if abs(x_c) <= h, vce(robust)
+ \end{lstlisting}
+ \source{Generic Stata syntax; $h$ is a chosen window. Cunningham, \S6.3 \slidecite{cunningham}}
+\end{frame}
+
+\begin{frame}{Functional form can create a false jump}
+ \begin{columns}[T]
+  \begin{column}{0.60\textwidth}\graph[0.62]{misspecification.png}\end{column}
+  \begin{column}{0.37\textwidth}\small
+   The manual simulates \textbf{zero treatment effect} with a nonlinear outcome-score relationship.\\[0.8em]
+   Broad-window straight lines give misleading cutoff predictions.\\[0.8em]
+   Adding high global polynomial orders is unstable; use local low-order fits.
+  \end{column}
+ \end{columns}
+ \source{Cunningham, Figure 6.9 and Table 6.1 \slidecite{gelman2019}}
+\end{frame}
+
+\begin{frame}{Bin averages and boundary bias}
+ \graph[0.58]{boundary_bias.pdf}
+ {\small A bin average summarizes outcomes away from the cutoff. With trends, its difference need not equal the boundary gap.}
+ \vspace{0.4em}
+ \textbf{Binning is for display; estimation uses individual observations.}
+ \source{Cunningham, Figure 6.10; binscatter discussion: \slidetextcite{binscatter2024}}
+\end{frame}
+
+\begin{frame}{Local linear regression}
+ Fit a weighted regression separately on each side:
+ \[
+  (\hat a_s,\hat b_s)=\arg\min_{a,b}
+   \sum_{i\in s,\,|x_i|\leq h_s}K(x_i/h_s)(Y_i-a-bx_i)^2.
+ \]
+ \[
+  \hat\tau=\hat a_+-\hat a_-,\qquad
+  K(u)=(1-|u|)\ind\{|u|\leq1\}.
+ \]
+ \begin{itemize}\setlength{\itemsep}{0.6em}
+  \item \textbf{Local:} use a neighborhood around $c$.
+  \item \textbf{Linear:} allow different slopes on either side.
+  \item \textbf{Triangular weights:} give nearby observations more influence.
+ \end{itemize}
+ \source{Cunningham, \S6.3 \slidecite{hahn2001,calonico2014,cattaneo2020}}
+\end{frame}
+
+\begin{frame}{Bandwidth, kernel, and polynomial order}
+ \begin{itemize}\setlength{\itemsep}{0.65em}
+  \item \textbf{Bandwidth $h$:} a narrower window usually reduces approximation bias but uses less information.
+  \item \textbf{Kernel $K$:} determines observation weights inside the window.
+  \item \textbf{Order $p$:} local linear ($p=1$) is a standard starting point.
+ \end{itemize}
+ \vspace{0.7em}
+ \[
+  \operatorname{MSE}(\hat\tau)=\operatorname{Bias}(\hat\tau)^2+\operatorname{Var}(\hat\tau).
+ \]
+ Data-driven bandwidths balance bias and variance; they can differ by side.
+ \vspace{0.5em}
+ Report the chosen windows and examine sensitivity.
+ \source{Cunningham, \S6.3 \slidecite{imbenskalyanaraman2012,calonico2014}}
+\end{frame}
+
+\begin{frame}{Robust bias-corrected inference}
+ At an MSE-optimal bandwidth, approximation bias can matter for confidence intervals.
+ \par
+ \vspace{0.9em}
+ \centering
+ \renewcommand{\arraystretch}{1.5}
+ \begin{tabular}{@{}lll@{}}\toprule
+  Interval & Center & Standard error\\\midrule
+  Conventional & $\hat\tau$ & Conventional\\
+  Bias-corrected & $\hat\tau-\hat B$ & Conventional\\
+  Robust bias-corrected & $\hat\tau-\hat B$ & Includes bias estimation\\\bottomrule
+ \end{tabular}\par
+ \vspace{0.9em}\raggedright
+ \[
+  \mathrm{CI}_{\mathrm{RBC}}=(\hat\tau-\hat B)\pm1.96\,\mathrm{SE}_{\mathrm{RBC}}.
+ \]
+ In \texttt{rdrobust}, pair \texttt{e(tau\_bc)} with \texttt{e(se\_tau\_rb)}.
+ \source{Cunningham, \S6.3 \slidecite{calonico2014,calonico2017}}
+\end{frame}
+
+\section{Validity}\subsection{Evidence}
+\begin{frame}{What can invalidate the comparison?}
+ \begin{itemize}\setlength{\itemsep}{0.7em}
+  \item Precise sorting: people manipulate their scores around $c$.
+  \item Another intervention changes at exactly the same cutoff.
+  \item Measurement, sample selection, or reporting rules change there.
+  \item Nonrandom heaping makes neighboring scores different types of units.
+ \end{itemize}
+ \vspace{0.7em}
+ \begin{block}{A failure of continuity}
+  If untreated potential outcomes jump at $c$, the observed discontinuity can combine that jump with the treatment effect.
+ \end{block}
+ \source{Cunningham, \S6.4 \slidecite{imbenslemieux2008,leelemieux2010}}
+\end{frame}
+
+\begin{frame}{Density continuity and manipulation}
+ \graph[0.59]{density.jpg}
+ \begin{itemize}\setlength{\itemsep}{0.3em}
+  \item Look for a change in the distribution of scores at $c$.
+  \item A density test is evidence about sorting; it cannot verify missing potential outcomes.
+ \end{itemize}
+ \source{Cunningham, Figure 6.11 \slidecite{mccrary2008,cjm2020}}
+\end{frame}
+
+\begin{frame}{Predetermined covariates and placebo cutoffs}
+ \begin{columns}[T]
+  \begin{column}{0.62\textwidth}\graph[0.66]{election_balance.jpg}\end{column}
+  \begin{column}{0.35\textwidth}\small
+   In close elections, check whether district characteristics jump at 50\% Democratic vote share.\\[0.8em]
+   Also estimate jumps at placebo cutoffs within each side.\\[0.8em]
+   Null findings support credibility; they do not establish continuity.
+  \end{column}
+ \end{columns}
+ \source{Cunningham, Figure 6.22 (covariate checks) \slidecite{leemoretti2004,imbenslemieux2008}}
+\end{frame}
+
+\begin{frame}{Birth-weight heaping}
+ \begin{columns}[T]
+  \begin{column}{0.61\textwidth}\graph[0.64]{birthweight_heaping.jpg}\end{column}
+  \begin{column}{0.36\textwidth}\small
+   Very-low-birth-weight classification changes at 1,500 grams.\\[0.7em]
+   Reported weights heap at round values.\\[0.7em]
+   If heaped babies differ systematically, the local comparison can be biased.\\[0.7em]
+   Excluding the cutoff changes the sample and needs justification.
+  \end{column}
+ \end{columns}
+ \source{Cunningham, Figure 6.13 \slidecite{almond2010,barreca2011,barreca2016}}
+\end{frame}
+
+\begin{frame}{Medicare eligibility at age 65}
+ \begin{columns}[T]
+  \begin{column}{0.60\textwidth}\graph[0.62]{medicare_employment.jpg}\end{column}
+  \begin{column}{0.37\textwidth}\small
+   Age 65 changes eligibility sharply; actual insurance coverage has imperfect take-up.\\[0.8em]
+   Retirement is a potential competing mechanism.\\[0.8em]
+   The manual uses employment profiles to assess whether work changes abruptly at 65.
+  \end{column}
+ \end{columns}
+ \source{Cunningham, \S6.5 and Figure 6.14 \slidecite{card2008}}
+\end{frame}
+
+\begin{frame}{Healthcare utilization at age 65}
+ \graph[0.65]{medicare_hospital.jpg}
+ {\small This is a reduced-form effect of crossing the eligibility threshold. An effect of actual coverage requires a first stage and additional assumptions.}
+ \source{Cunningham, Figure 6.15; utilization and subsequent mortality study \slidecite{card2008,card2009}}
+\end{frame}
+
+\section{Fuzzy RD}\subsection{Imperfect take-up}
+\begin{frame}{Hoekstra's actual design: admission and attendance}
+ \begin{columns}[T]
+  \begin{column}{0.59\textwidth}\graph[0.65]{hoekstra_firststage.jpg}\end{column}
+  \begin{column}{0.38\textwidth}\small
+   $Z_i=\ind\{X_i\geq0\}$: crossing the admission threshold.\\[0.7em]
+   $D_i$: attending the flagship.\\[0.7em]
+   Admission causes a jump in enrollment, rather than universal attendance.\\[0.7em]
+   Unpublished, changing cutoffs make precise targeting less plausible.
+  \end{column}
+ \end{columns}
+ \source{Cunningham, Figure 6.20; supplied handout, pp. 4--5 \slidecite{hoekstra2009}}
+\end{frame}
+
+\begin{frame}{The fuzzy RD ratio}
+ \[
+  \tau_{\mathrm{FRD}}(c)=
+  \frac{\lim_{x\to c^+}\E[Y_i\mid X_i=x]-\lim_{x\to c^-}\E[Y_i\mid X_i=x]}
+       {\lim_{x\to c^+}\E[D_i\mid X_i=x]-\lim_{x\to c^-}\E[D_i\mid X_i=x]}.
+ \]
+ \vspace{0.6em}
+ \begin{itemize}\setlength{\itemsep}{0.7em}
+  \item \textbf{Numerator:} reduced-form jump in the outcome.
+  \item \textbf{Denominator:} first-stage jump in treatment take-up.
+  \item \textbf{Illustration:} an outcome jump of 2 and a take-up jump of 0.4 imply a ratio of 5.
+ \end{itemize}
+ \source{Illustrative numbers. Cunningham, \S7.7, fuzzy RDD subsection \slidecite{hahn2001,imbenslemieux2008}}
+\end{frame}
+
+\begin{frame}{Additional assumptions and the estimand}
+ \begin{itemize}\setlength{\itemsep}{0.65em}
+  \item \textbf{Continuity:} the relevant potential outcomes and compliance types vary smoothly at $c$.
+  \item \textbf{Relevance:} crossing the cutoff changes the probability of treatment.
+  \item \textbf{Exclusion:} crossing the cutoff affects $Y$ through $D$.
+  \item \textbf{Monotonicity:} crossing to the eligible side does not reduce anyone's take-up.
+  \item \textbf{Well-defined treatment and no interference.}
+ \end{itemize}
+ \vspace{0.6em}
+ The ratio identifies the \textbf{LATE for compliers at the cutoff}.
+ \source{Cunningham, fuzzy RDD subsection \slidecite{hahn2001,imbensangrist1994,angrist1996}}
+\end{frame}
+
+\begin{frame}[fragile]{Fuzzy RD as local 2SLS}
+ With $x_i=X_i-c$ and $Z_i=\ind\{X_i\geq c\}$:
+ \begin{align*}
+ D_i&=a+\pi Z_i+b x_i+g Z_ix_i+v_i,\\
+ Y_i&=\alpha+\tau D_i+\beta x_i+\gamma Z_ix_i+u_i.
+ \end{align*}
+ Instrument $D_i$ with $Z_i$; retain the same score controls on each side.
+ \begin{lstlisting}
+generate double zx = z*x_c
+ivregress 2sls earnings x_c zx (attend = z) ///
+    if abs(x_c) <= h, vce(robust)
+* Alternatively: local polynomial fuzzy RD with RBC inference
+rdrobust earnings score, c(0) fuzzy(attend) p(1)
+ \end{lstlisting}
+ \source{Generic syntax, not a run on Hoekstra data. Cunningham, fuzzy RDD subsection \slidecite{calonico2017}}
+\end{frame}
+
+\begin{frame}{Another fuzzy design: Maimonides' rule}
+ \textbf{Angrist and Lavy:} classes in Israeli schools are split at enrollment thresholds. \slidecite{angristlavy1999}
+ \vspace{0.7em}
+ \begin{itemize}\setlength{\itemsep}{0.6em}
+  \item Rule-predicted class size falls when enrollment crosses a threshold.
+  \item Actual class size responds imperfectly, creating a first stage.
+  \item Outcomes are student achievement measures.
+  \item The IV logic asks whether the rule changes achievement through class size.
+ \end{itemize}
+ \vspace{0.7em}
+ Class size is a \emph{continuous} treatment: the binary-treatment complier interpretation requires adaptation.
+ \source{Cunningham, \S6.1--6.2 and fuzzy RDD subsection \slidecite{cunningham}}
+\end{frame}
+
+\begin{frame}{Sharp and fuzzy RD: what is identified?}
+ \renewcommand{\arraystretch}{1.5}
+ \begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.21\textwidth}>{\raggedright\arraybackslash}p{0.34\textwidth}>{\raggedright\arraybackslash}p{0.37\textwidth}@{}}\toprule
+  & Sharp RD & Fuzzy RD\\\midrule
+  Assignment & Treatment is determined by crossing $c$ & Treatment probability changes at $c$\\
+  Estimator & Outcome discontinuity & Outcome jump / take-up jump\\
+  Estimand & ATE at $c$ & Complier LATE at $c$\\
+  Main requirements & Continuity, well-defined treatment & Continuity plus IV assumptions\\\bottomrule
+ \end{tabular}\par
+ \vspace{0.8em}
+ For either design, define treatment precisely and inspect the institutional rule.
+ \source{Cunningham, Chapters 6--7 \slidecite{hahn2001,leelemieux2010}}
+\end{frame}
+
+\section{Hansen lab}\subsection{Stata exercise}
+\begin{frame}{Exercise: DUI sanctions and recidivism}
+ \textbf{Research question:} does crossing the DUI BAC threshold reduce subsequent offending? \slidecite{hansen2015}
+ \vspace{0.5em}
+ \begin{itemize}\setlength{\itemsep}{0.55em}
+  \item $X_i$: measured blood alcohol content (BAC); cutoff $c=0.08$.
+  \item $D_i=\ind\{X_i\geq0.08\}$: exposure to the threshold-based DUI regime.
+  \item $Y_i$: recidivism indicator in the teaching extract.
+  \item Cunningham's extract has \textbf{214,558 observations}; this is a teaching exercise rather than a full replication of the paper.
+ \end{itemize}
+ \vspace{0.4em}
+ \textbf{20-minute task:} assess credibility, estimate the gap, and interpret its magnitude.
+ \source{Cunningham, \S6.6; sanctions and deterrence framework \slidecite{cunningham,becker1968}}
+\end{frame}
+
+\begin{frame}[fragile]{Load the data and center BAC}
+ Run directly in Stata 18. If necessary, select this do-file in the folder-location dialog:
+ \begin{lstlisting}
+do "hansen_seminar.do"
+ \end{lstlisting}
+ The script downloads once and then uses the cached data:
+ \begin{lstlisting}
+use "`output_dir'/hansen_dwi.dta", clear
+rename bac1 bac1_orig
+generate double bac1 = bac1_orig - 0.08
+generate byte dui = (bac1_orig >= 0.08) if !missing(bac1_orig)
+generate double bac1_sq = bac1^2
+ \end{lstlisting}
+ \begin{itemize}
+  \item Use \texttt{bac1\_orig} with \texttt{c(0.08)}; centered BAC has cutoff zero.
+  \item The script sets its folder with \texttt{cd}, then saves figures, tables, and a log.
+ \end{itemize}
+ \source{Seminar script adapted from the supplied \texttt{hansen\_complete.do} \slidecite{hansen2015,cunningham}}
+\end{frame}
+
+\begin{frame}[fragile]{Inspect the BAC distribution}
+ \begin{lstlisting}
+histogram bac1_orig, discrete width(0.001) color(gs10%90) ///
+    xline(0.08) title("Figure 6.16: BAC histogram")
+ \end{lstlisting}
+ \graph[0.48]{figure_6_16.png}
+ \source{Generated from the teaching extract; compare Cunningham, Figure 6.16 \slidecite{hansen2015}}
+\end{frame}
+
+\begin{frame}[fragile]{The density test and recorded precision}
+ \begin{columns}[T]
+  \begin{column}{0.60\textwidth}\graph[0.57]{density_diagnostic.png}\end{column}
+  \begin{column}{0.37\textwidth}\small
+   Robust density-test $p=0.8897$.\\[0.7em]
+   It does not reject density continuity.\\[0.6em]
+   Narrow-window binomial tests reject at several widths; recorded precision matters.
+  \end{column}
+ \end{columns}
+ \begin{lstlisting}
+rddensity bac1_orig, c(0.08) plot
+ \end{lstlisting}
+ \source{Generated output. Interpret the tests with the histogram \slidecite{mccrary2008,cjm2020}}
+\end{frame}
+
+\begin{frame}[fragile]{Covariate balance: code and estimates}
+ \begin{lstlisting}
+foreach outcome in white male aged acc {
+    regress `outcome' i.dui##c.bac1 ///
+        if inrange(bac1_orig, 0.03, 0.13), vce(robust)
+}
+ \end{lstlisting}
+ \input{assets/table_6_6.tex}
+ \source{Generated Table 6.6; proportions for White/Male/Accident, years for Age \slidecite{hansen2015}}
+\end{frame}
+
+\begin{frame}[fragile]{Covariate balance: figures}
+ \graph[0.54]{figure_6_17.png}
+ \begin{lstlisting}
+cmogram male bac1_orig if inrange(bac1_orig, 0.03, 0.13), ///
+    scatter cut(0.08) line(0.08) lfit
+ \end{lstlisting}
+ \source{Repeat for White, Age, and Accident; generated Figure 6.17 \slidecite{hansen2015}}
+\end{frame}
+
+\begin{frame}[fragile]{Plot the recidivism discontinuity}
+ \begin{lstlisting}
+cmogram recidivism bac1_orig if inrange(bac1_orig, 0.03, 0.13), ///
+    scatter cut(0.08) line(0.08) lfit
+* Repeat with qfit for the quadratic panel.
+ \end{lstlisting}
+ \graph[0.47]{figure_6_18.png}
+ \source{Generated Figure 6.18; read the fitted gap at 0.08 \slidecite{hansen2015}}
+\end{frame}
+
+\begin{frame}[fragile]{OLS results in the fixed BAC window}
+ \begin{lstlisting}
+regress recidivism i.dui##c.bac1 ///
+    if inrange(bac1_orig, 0.03, 0.13), vce(robust)
+regress recidivism i.dui##c.(bac1 bac1_sq) ///
+    if inrange(bac1_orig, 0.03, 0.13), vce(robust)
+ \end{lstlisting}
+ \input{assets/table_6_7.tex}
+ \source{Generated Table 6.7: sample mean and fitted untreated cutoff level are distinct \slidecite{hansen2015}}
+\end{frame}
+
+\begin{frame}[fragile]{Local polynomial RD: code}
+ \begin{lstlisting}
+rdrobust recidivism bac1_orig, c(0.08) p(1) ///
+    kernel(triangular) bwselect(msetwo) ///
+    vce(nn 3) masspoints(adjust) all
+ \end{lstlisting}
+ \begin{itemize}\setlength{\itemsep}{0.65em}
+  \item Repeat for $p=0,1,2$: local constant, linear, and quadratic.
+  \item Use the full BAC sample for bandwidth selection.
+  \item \texttt{msetwo} chooses separate MSE-optimal windows by side.
+  \item Pair the bias-corrected effect with the RBC standard error.
+ \end{itemize}
+ \source{The script stores each model and its bandwidths \slidecite{calonico2014,calonico2017}}
+\end{frame}
+
+\begin{frame}{Local polynomial RD: results}
+ \input{assets/table_6_8.tex}
+ \vspace{0.5em}
+ \small The quadratic right window reaches BAC 0.174, beyond the aggravated-DUI threshold of 0.15. Check sensitivity to narrower windows.
+ \source{Generated Table 6.8: both sides and their sum are reported \slidecite{hansen2015,calonico2017}}
+\end{frame}
+
+\begin{frame}{The local polynomial fits}
+ \graph[0.51]{table6_8_plots.png}
+ \begin{itemize}\setlength{\itemsep}{0.4em}
+  \item Each panel uses its own estimated left and right bandwidths.
+  \item Curves show conventional fits; subtitles show bias-corrected effects.
+  \item Binned dots summarize the data; they do not determine the estimates.
+ \end{itemize}
+ \source{Generated from the stored Table 6.8 models \slidecite{hansen2015,calonico2017}}
+\end{frame}
+
+\begin{frame}{Interpret the local linear result}
+ \input{assets/local_linear_summary.tex}
+ \begin{itemize}\setlength{\itemsep}{0.65em}
+  \item This is a local effect of crossing the threshold-based DUI regime.
+  \item It combines the sanctions and other consequences triggered there.
+  \item The data do not separately identify each mechanism behind reduced recidivism.
+ \end{itemize}
+ \source{Generated $p=1$ result from Cunningham's teaching extract \slidecite{hansen2015}}
+\end{frame}
+
+\begin{frame}{Exercise discussion}
+ \begin{enumerate}\setlength{\itemsep}{0.7em}
+  \item What makes continuity plausible in this institutional setting?
+  \item What do the histogram, density test, and balance checks establish?
+  \item Why do OLS and local linear estimates differ?
+  \item Which people does the estimate describe, and what does it say about mechanism?
+ \end{enumerate}
+ \vspace{0.7em}
+ \begin{block}{Evidence to take away}
+  A known rule, a visible outcome gap, credible local comparisons, and inference that accounts for approximation bias.
+ \end{block}
+ \source{Cunningham, \S6.6--6.7 \slidecite{imbenslemieux2008,leelemieux2010}}
+\end{frame}
+
+\appendix
+\setbeamertemplate{headline}{}
+\section{Supplementary material}
+
+\begin{frame}{Observed data from the manual's simulation}
+ \graph[0.70]{observed_jump.png}
+ \source{Cunningham, Figure 6.8: observing different potential outcomes on either side \slidecite{cunningham}}
+\end{frame}
+
+\begin{frame}{Homogeneous effects as a special case}
+ \graph[0.70]{potential_homogeneous.pdf}
+ \source{Cunningham, Figure 6.5; broader representativeness requires further assumptions \slidecite{cunningham}}
+\end{frame}
+
+\begin{frame}{Discrete scores and standard errors}
+ \begin{itemize}\setlength{\itemsep}{0.7em}
+  \item Many observations can share a score without providing many distinct score values near $c$.
+  \item With fixed support and gaps, a continuous-score limiting argument needs additional structure.
+  \item \texttt{masspoints(adjust)} helps bandwidth selection; it does not resolve all identification and inference issues from discreteness.
+  \item Clustering only by running-variable values is not a general solution.
+ \end{itemize}
+ \source{Cunningham, \S6.3; early and later treatments \slidecite{leecard2008,kolesar2018}}
+\end{frame}
+
+\begin{frame}[fragile]{Plot the model's actual estimation window}
+ \begin{lstlisting}
+estimates restore recid_rd_p1
+local hl = e(h_l)
+local hr = e(h_r)
+local xmin = e(c) - `hl'
+local xmax = e(c) + `hr'
+rdplot recidivism bac1_orig if inrange(bac1_orig, `xmin', `xmax'), ///
+    c(0.08) p(1) h(`hl' `hr') kernel(triangular) ///
+    nbins(10 10) masspoints(adjust)
+ \end{lstlisting}
+ \vspace{0.6em}
+ This reuses the stored model's bandwidths and the same polynomial order.
+ \source{Seminar script, section 7 \slidecite{calonico2017}}
+\end{frame}
+
+\begin{frame}{Local constant fit}
+ \graph[0.77]{table6_8_plot_p0.png}
+ \source{Generated from the Table 6.8 model with $p=0$ \slidecite{hansen2015}}
+\end{frame}
+\begin{frame}{Local linear fit}
+ \graph[0.77]{table6_8_plot_p1.png}
+ \source{Generated from the Table 6.8 model with $p=1$ \slidecite{hansen2015}}
+\end{frame}
+\begin{frame}{Local quadratic fit}
+ \graph[0.77]{table6_8_plot_p2.png}
+ \source{Generated from the Table 6.8 model with $p=2$ \slidecite{hansen2015}}
+\end{frame}
+
+\begin{frame}[fragile]{Store the estimated effects and uncertainty}
+ \begin{lstlisting}
+forvalues p = 0/2 {
+    local col = `p' + 1
+    capture program drop rdrobust
+    rdrobust recidivism bac1_orig, c(0.08) p(`p') ///
+        kernel(triangular) bwselect(msetwo) ///
+        vce(nn 3) masspoints(adjust) all
+    estimates store recid_rd_p`p'
+    matrix table6_8[1, `col'] = e(tau_bc)
+    matrix table6_8[2, `col'] = e(se_tau_rb)
+}
+ \end{lstlisting}
+ \source{Excerpt from the runnable seminar script; its matrix also stores bandwidths and effective sample sizes \slidecite{calonico2017}}
+\end{frame}
+
+\begin{frame}[fragile]{Export the figures and tables}
+ \begin{lstlisting}
+graph save fig616 "`output_dir'/figure_6_16.gph", replace
+graph export "`output_dir'/figure_6_16.png", ///
+    name(fig616) width(2400) replace
+* Example for one table:
+preserve
+clear
+svmat double table6_7, names(col)
+export delimited using "`output_dir'/table_6_7_values.csv", replace
+restore
+ \end{lstlisting}
+ The full script additionally exports descriptive row labels for all three tables.
+ \source{Figures remain editable in Stata's GPH format. The deck's table inputs are generated from CSV output.}
+\end{frame}
+
+\begin{frame}{Other deterrence studies in the manual}
+ \begin{itemize}\setlength{\itemsep}{0.8em}
+  \item An Italian collective pardon changes the sentence faced after reoffending. \slidecite{drago2009}
+  \item The adult criminal-justice threshold at age 18 offers another RD setting. \slidecite{leemccrary2017}
+  \item These designs distinguish behavioral responses to threatened sanctions from the mechanical effects of incarceration.
+ \end{itemize}
+ \source{Cunningham, \S6.6; supplementary context for the Hansen exercise \slidecite{becker1968}}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{References}
+ \printbibliography[heading=none]
+\end{frame}
+\end{document}
