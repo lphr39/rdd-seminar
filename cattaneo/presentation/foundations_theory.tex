@@ -1,0 +1,476 @@
+\section{Foundations: theory}
+\begin{frame}[plain]{Part I: Foundations}
+\vspace{1em}\Large The canonical sharp RD design
+\vspace{1.2em}\normalsize
+\begin{enumerate}\setlength{\itemsep}{.65em}
+\item The sharp RD design and its local effect
+\item RD plots
+\item Continuity based estimation and inference
+\item Validation and falsification
+\end{enumerate}
+\F{Sections 1--5}
+\end{frame}
+
+\subsection{The sharp RD design}
+\begin{frame}{The ingredients of a sharp RD design}
+\begin{items}
+\item Each unit has a score $X_i$ and faces a known cutoff $c$.
+\item The assignment rule is $T_i=\ind\{X_i\geq c\}$.
+\item In a \textbf{sharp} design, actual treatment equals assignment: $D_i=T_i$.
+\item Foundations considers one continuous score, one cutoff, and perfect compliance.
+\end{items}
+\F{Section 2}
+\end{frame}
+
+\begin{frame}{Treatment assignment at the cutoff}
+\begin{columns}
+\begin{column}{.59\textwidth}\fig[.71]{sharp_assignment.pdf}\end{column}
+\begin{column}{.37\textwidth}
+The rule creates a discontinuous change in treatment probability.\\[1em]
+Whether this change identifies a causal effect depends on assumptions about outcomes.
+\end{column}
+\end{columns}
+\F{Section 2, Figure 1}
+\end{frame}
+
+\begin{frame}{Potential outcomes and observed outcomes}
+For each unit, define $Y_i(1)$ and $Y_i(0)$.
+\[
+Y_i=T_iY_i(1)+(1-T_i)Y_i(0).
+\]
+\begin{items}
+\item Only one potential outcome is observed for each unit.
+\item Above the cutoff we observe treated outcomes. Below it we observe untreated outcomes.
+\item Treatment effects require a comparison with the missing counterfactual.
+\end{items}
+\F{Section 2}
+\end{frame}
+
+\begin{frame}{The sharp RD effect}
+Define the conditional mean potential outcomes
+\[
+\mu_d(x)=\E[Y_i(d)\mid X_i=x],\qquad d\in\{0,1\}.
+\]
+The target is the average treatment effect \textbf{at the cutoff}:
+\[
+\tau_{\mathrm{SRD}}=\E[Y_i(1)-Y_i(0)\mid X_i=c]
+=\mu_1(c)-\mu_0(c).
+\]
+\begin{items}
+\item For a continuous score, conditioning at $c$ describes a conditional mean function.
+\item The target does not require a large group of observations exactly at $c$.
+\end{items}
+\F{Section 2}
+\end{frame}
+
+\begin{frame}{Continuity of the counterfactual mean functions}
+\begin{columns}
+\begin{column}{.57\textwidth}\fig[.7]{sharp_effect.pdf}\end{column}
+\begin{column}{.40\textwidth}
+Assume $\mu_0(x)$ and $\mu_1(x)$ are continuous at $c$.\\[.8em]
+The solid portions are observable. The dashed portions are counterfactual.\\[.8em]
+Continuity connects each observed limit to its missing value at the cutoff.
+\end{column}
+\end{columns}
+\F{Section 2, Figure 2}
+\end{frame}
+
+\begin{frame}{Identification by one-sided limits}
+On the two sides of the threshold,
+\[
+\E[Y_i\mid X_i=x]=
+\begin{cases}\mu_0(x),&x<c,\\\mu_1(x),&x\geq c.\end{cases}
+\]
+Continuity gives
+\[
+\boxed{\tau_{\mathrm{SRD}}=
+\lim_{x\downarrow c}\E[Y_i\mid X_i=x]
+-\lim_{x\uparrow c}\E[Y_i\mid X_i=x].}
+\]
+\begin{items}
+\item The observed outcome mean can jump because treatment changes.
+\item Another intervention changing at the same cutoff can undermine this interpretation.
+\end{items}
+\F{Section 2}
+\end{frame}
+
+\begin{frame}{The local nature of the effect}
+\begin{items}
+\item The design identifies an effect for units at the assignment threshold.
+\item Treatment effects may vary with the score and other characteristics.
+\item A local effect can answer a relevant policy question about marginal eligibility.
+\item Effects far from $c$, or under a substantially different cutoff, require additional assumptions.
+\end{items}
+\vspace{.5em}
+\textbf{Identification and policy scope are separate questions.}
+\F{Section 2.2}
+\end{frame}
+
+\begin{frame}{What continuity allows}
+\begin{items}
+\item The score can strongly predict both potential outcomes.
+\item Treated and control units can differ substantially away from the threshold.
+\item Continuity does not impose random assignment throughout a fixed interval.
+\item In a finite sample, estimation must approximate the limits using nearby observations.
+\end{items}
+\F{Sections 2 and 4.1}
+\end{frame}
+
+\subsection{RD plots}
+\begin{frame}{The purpose of an RD plot}
+\begin{items}
+\item Show the relationship between the score and the outcome on each side.
+\item Reveal support, outliers, curvature, and a possible jump at $c$.
+\item Combine \textbf{local averages in bins} with separate smooth fits.
+\item Keep the graphical description distinct from formal estimation of the discontinuity.
+\end{items}
+\F{Section 3; \textcite{cct2015}}
+\end{frame}
+
+\begin{frame}{How binned means work}
+Partition the score into bins $I_1,\ldots,I_J$. For bin $j$,
+\[
+\bar X_j=\frac{1}{n_j}\sum_{i:X_i\in I_j}X_i,
+\qquad
+\bar Y_j=\frac{1}{n_j}\sum_{i:X_i\in I_j}Y_i.
+\]
+\begin{items}
+\item Plot one point $(\bar X_j,\bar Y_j)$ per bin.
+\item Construct bins separately on each side so no bin mixes treatment statuses.
+\item A point summarizes many units. It is not generally an individual observation.
+\end{items}
+\F{Section 3}
+\end{frame}
+
+\begin{frame}{Evenly spaced and quantile spaced bins}
+\begin{columns}[T]
+\begin{column}{.47\textwidth}
+\textbf{Evenly spaced bins}\\[.5em]
+Similar score width within each side.\\[.6em]
+Numbers of observations can vary considerably.\\[.6em]
+Sparse regions can produce noisy bin means.
+\end{column}
+\begin{column}{.47\textwidth}
+\textbf{Quantile spaced bins}\\[.5em]
+Similar numbers of observations per bin.\\[.6em]
+Score widths vary with the density.\\[.6em]
+Dense regions receive a finer score partition.
+\end{column}
+\end{columns}
+\F{Section 3.1}
+\end{frame}
+
+\begin{frame}{The number of bins}
+\begin{items}
+\item Few wide bins smooth the plot heavily and can hide local variation.
+\item Many narrow bins expose variation but make individual means less precise.
+\item Data driven bin selection formalizes the tradeoff.
+\item The two sides can use different numbers of bins.
+\end{items}
+\F{Section 3.2}
+\end{frame}
+
+\begin{frame}{IMSE and mimicking variance plots}
+\begin{items}
+\item \textbf{IMSE selection} balances integrated squared approximation error against variance when displaying the regression function.
+\item \textbf{Mimicking variance selection} uses more bins to reveal the outcome's variability.
+\item These are different graphical objectives and can produce different looking plots.
+\item A smooth fitted curve can accompany either choice.
+\end{items}
+\F{Sections 3.2.1--3.2.2}
+\end{frame}
+
+\begin{frame}{Graphical choices and causal inference}
+\begin{items}
+\item Report the displayed score range and the binning rule.
+\item Fit curves separately on either side of the cutoff.
+\item A global polynomial used to describe a plot need not be the estimator used for causal inference.
+\item Confidence intervals for bin means do not provide a confidence interval for the jump.
+\end{items}
+\F{Sections 3 and 4.1}
+\end{frame}
+
+\subsection{Continuity based estimation}
+\begin{frame}{Local polynomial approximation}
+\begin{columns}
+\begin{column}{.58\textwidth}\fig[.70]{local_polynomial.pdf}\end{column}
+\begin{column}{.39\textwidth}
+Approximate each regression function in a neighborhood of $c$.\\[.8em]
+Estimate its intercept at the cutoff.\\[.8em]
+Subtract the left intercept from the right intercept.
+\end{column}
+\end{columns}
+\F{Section 4.1, Figure 12}
+\end{frame}
+
+\begin{frame}{The local polynomial estimator}
+Let $x_i=X_i-c$ and $r_p(x)=(1,x,\ldots,x^p)'$. Separately for $s\in\{-,+\}$,
+\[
+\widehat\beta_s=\arg\min_{\beta}\sum_{i\in\mathcal I_s}
+ K\!\left(\frac{x_i}{h_s}\right)\big[Y_i-r_p(x_i)'\beta\big]^2,
+\]
+where $\mathcal I_- =\{i:x_i<0\}$ and $\mathcal I_+=\{i:x_i\geq0\}$.
+\[
+\widehat\tau=e_1'(\widehat\beta_+-\widehat\beta_-),
+\qquad e_1=(1,0,\ldots,0)'.
+\]
+\F{Section 4.2}
+\end{frame}
+
+\begin{frame}{Local linear regression}
+With $p=1$, the fitted lines are
+\[
+\widehat m_-(x)=\widehat\alpha_-+\widehat\beta_-x,
+\qquad
+\widehat m_+(x)=\widehat\alpha_++\widehat\beta_+x.
+\]
+\[
+\widehat\tau=\widehat\alpha_+-\widehat\alpha_-.
+\]
+\begin{items}
+\item The slopes can differ across sides.
+\item Centering the score at $c$ makes each intercept a fitted cutoff value.
+\item Local quadratic regression adds curvature without imposing a global fit.
+\end{items}
+\F{Section 4.2}
+\end{frame}
+
+\begin{frame}{A single regression representation}
+Within a common window and using the same kernel weights,
+\[
+Y_i=\alpha+\tau T_i+\beta x_i+\gamma T_ix_i+\varepsilon_i.
+\]
+\begin{items}
+\item Below the cutoff: intercept $\alpha$, slope $\beta$.
+\item Above the cutoff: intercept $\alpha+\tau$, slope $\beta+\gamma$.
+\item The coefficient on $T_i$ estimates the cutoff jump.
+\item The algebraic representation alone does not provide bias corrected inference.
+\end{items}
+\F{Section 4.2}
+\end{frame}
+
+\begin{frame}{The kernel function}
+Two common choices for the weights are
+\[
+K_U(u)=\ind\{|u|\leq1\},\qquad
+K_T(u)=(1-|u|)\ind\{|u|\leq1\}.
+\]
+\begin{items}
+\item A uniform kernel gives equal weight within the chosen window.
+\item A triangular kernel gives more weight to observations near $c$.
+\item Kernel weighting localizes the regression. It does not randomize treatment.
+\end{items}
+\F{Section 4.2.1}
+\end{frame}
+
+\begin{frame}{The polynomial order}
+\begin{items}
+\item Local linear regression is a practical default for estimating a level discontinuity.
+\item Local quadratic regression can check sensitivity to curvature.
+\item Higher orders can amplify variance and sensitivity near a boundary.
+\item An elaborate polynomial over the full score range can give distant observations substantial influence on the cutoff fit.
+\end{items}
+\F{Section 4.2.1}
+\end{frame}
+
+\begin{frame}{Bandwidth and local sample size}
+\[
+\mathcal W_h=[c-h_-,c+h_+].
+\]
+\begin{items}
+\item The bandwidth determines which observations inform the cutoff fit.
+\item Smaller $h$ uses observations closer to $c$, reducing approximation error.
+\item Larger $h$ generally improves precision by using more observations.
+\item The effective sample sizes on each side matter more than the overall dataset size for precision at $c$.
+\end{items}
+\F{Section 4.2.2}
+\end{frame}
+
+\begin{frame}{Approximation bias near the boundary}
+\fig[.70]{approximation_bias.pdf}
+\src{A line can approximate a smooth curve differently as the estimation window changes.}
+\F{Section 4.2.2, Figure 14}
+\end{frame}
+
+\begin{frame}{Bias, variance, and mean squared error}
+For a level discontinuity, under regularity conditions and a common $h$,
+\[
+\operatorname{Bias}(\widehat\tau)\approx h^{p+1}\mathcal B,
+\qquad
+\V(\widehat\tau)\approx\frac{\mathcal V}{nh}.
+\]
+\[
+\operatorname{MSE}(\widehat\tau)
+\approx h^{2(p+1)}\mathcal B^2+\frac{\mathcal V}{nh}.
+\]
+\begin{items}
+\item The squared bias and variance move in opposite directions.
+\item For $p=1$, balancing their orders gives $h_{\mathrm{MSE}}\propto n^{-1/5}$.
+\end{items}
+\F{Sections 4.2.2--4.2.3; corrected bias order in the 2023 erratum}
+\end{frame}
+
+\begin{frame}{Data driven bandwidth selection}
+\begin{items}
+\item Feasible MSE selection estimates the unknown curvature and variance terms.
+\item A common bandwidth and separate bandwidths are both possible.
+\item The chosen bandwidth depends on the outcome, specification, and sample.
+\item Selecting a bandwidth to obtain a desired sign or significance level invalidates the stated analysis.
+\end{items}
+\F{Sections 4.2.2--4.2.4}
+\end{frame}
+
+\subsection{Inference}
+\begin{frame}{Why conventional inference can fail}
+The conventional statistic treats approximation bias as negligible:
+\[
+T_{\mathrm{conv}}=\frac{\widehat\tau-\tau_0}{\widehat{\mathrm{se}}(\widehat\tau)}.
+\]
+\begin{items}
+\item At an MSE optimal bandwidth, bias is generally of the same order as the standard error.
+\item Centering a normal interval on $\widehat\tau$ can then produce poor coverage.
+\item Heteroskedasticity robust standard errors address sampling variability, but do not remove smoothing bias.
+\end{items}
+\F{Section 4.3}
+\end{frame}
+
+\begin{frame}{Undersmoothing and bias correction}
+\begin{items}
+\item \textbf{Undersmoothing:} choose a smaller bandwidth so bias becomes negligible relative to sampling uncertainty.
+\item This sacrifices precision and requires a defensible rule for how much to shrink $h$.
+\item \textbf{Bias correction:} estimate the leading approximation bias and subtract it.
+\item Estimating that bias introduces additional uncertainty.
+\end{items}
+\F{Section 4.3}
+\end{frame}
+
+\begin{frame}{Robust bias corrected inference}
+Estimate the bias using a higher order local polynomial, often $q=p+1$:
+\[
+\widehat\tau_{\mathrm{bc}}=\widehat\tau-\widehat B.
+\]
+Use a variance estimate that includes the uncertainty in $\widehat B$:
+\[
+\mathrm{CI}_{\mathrm{RBC}}=
+\left[\widehat\tau_{\mathrm{bc}}\ \pm\ z_{1-\alpha/2}\widehat{\mathrm{se}}_{\mathrm{RBC}}\right].
+\]
+\begin{items}
+\item Correcting the center without correcting the standard error is insufficient.
+\item The estimation bandwidth $h$ and bias bandwidth $b$ can differ.
+\end{items}
+\F{Section 4.3; \textcite{cct2014}}
+\end{frame}
+
+\begin{frame}{Point estimation and interval estimation}
+\begin{items}
+\item \textbf{MSE optimal bandwidths} target the accuracy of the point estimator.
+\item \textbf{Coverage error optimal bandwidths} target the coverage accuracy of a confidence interval.
+\item Robust bias correction allows valid asymptotic inference at an MSE optimal bandwidth under appropriate conditions.
+\item A bandwidth optimized for one objective need not be optimal for the other.
+\end{items}
+\F{Section 4.3}
+\end{frame}
+
+\begin{frame}{Reading an RD results table}
+\begin{items}
+\item The conventional point estimate is the difference between the fitted cutoff intercepts.
+\item The bias corrected estimate subtracts estimated smoothing bias.
+\item The robust interval centers on the bias corrected estimate and uses the corrected variance.
+\item A report should identify the estimator, interval method, polynomial order, kernel, bandwidths, and effective sample sizes.
+\end{items}
+\F{Section 4.3}
+\end{frame}
+
+\subsection{Additional practical issues}
+\begin{frame}{Covariate adjustment}
+\begin{items}
+\item Predetermined covariates can improve precision when they predict the outcome.
+\item A common additive adjustment can preserve the original RD effect under suitable balance and regularity conditions.
+\item Treatment affected variables can introduce post-treatment bias.
+\item Covariate adjustment cannot establish continuity when the underlying design is invalid.
+\end{items}
+\F{Section 4.4; \textcite{ccft2019}}
+\end{frame}
+
+\begin{frame}{Dependence and effective information}
+\begin{items}
+\item Standard errors must reflect the sampling and assignment environment.
+\item Clustering can be appropriate when outcomes share shocks within sampling groups.
+\item Few clusters near the cutoff can make conventional approximations unreliable.
+\item Repeated score values introduce a separate support problem, developed in Extensions.
+\end{items}
+\F{Section 4.4}
+\end{frame}
+
+\subsection{Validation and falsification}
+\begin{frame}{What validation can establish}
+\begin{items}
+\item The key continuity assumptions involve unobserved counterfactual outcomes.
+\item Observable implications can expose reasons those assumptions are implausible.
+\item Institutional knowledge is needed to interpret diagnostic evidence.
+\item Passing a collection of tests supports credibility, but cannot prove identification.
+\end{items}
+\F{Section 5}
+\end{frame}
+
+\begin{frame}{Predetermined covariates and placebo outcomes}
+\begin{items}
+\item Use variables that the treatment could not have affected.
+\item Estimate their discontinuities with the same care given to the main outcome.
+\item Large or systematic jumps can indicate changes in composition or other confounders.
+\item With many covariates, isolated small $p$-values can arise by chance. Their magnitude and substantive meaning matter.
+\end{items}
+\F{Section 5.1}
+\end{frame}
+
+\begin{frame}{The density of the running variable}
+\begin{items}
+\item A discontinuity in the score density can indicate precise sorting across the cutoff.
+\item Modern density tests compare one-sided density estimates directly.
+\item A density jump requires an explanation in the context of how the score is generated.
+\item A smooth density alone cannot exclude every form of sorting or confounding.
+\end{items}
+\F{Section 5.2; \textcite{cj2020}}
+\end{frame}
+
+\begin{frame}{Placebo cutoffs}
+\begin{items}
+\item Estimate artificial discontinuities at points where the treatment rule does not change.
+\item Restrict each analysis to observations on the same side of the actual cutoff.
+\item A placebo window crossing the true treatment threshold can pick up a real effect.
+\item Placebo jumps can reveal misspecification, other policies, or chance variation.
+\end{items}
+\F{Section 5.3}
+\end{frame}
+
+\begin{frame}{Observations closest to the cutoff}
+\begin{items}
+\item Heaping or manipulation may concentrate at the threshold itself.
+\item A donut analysis removes observations very close to $c$.
+\item It then requires more extrapolation to recover a cutoff effect.
+\item Any change in results should be interpreted together with the reason for exclusion and the loss of local support.
+\end{items}
+\F{Section 5.4}
+\end{frame}
+
+\begin{frame}{Sensitivity to the bandwidth}
+\begin{items}
+\item Compare a planned range of smaller and larger bandwidths.
+\item Examine magnitudes and confidence intervals, alongside sample sizes.
+\item Report how the bias bandwidth changes when $h$ changes.
+\item Significance across several correlated specifications is not a sequence of independent confirmations.
+\end{items}
+\F{Section 5.5}
+\end{frame}
+
+\begin{frame}{A complete sharp RD analysis}
+\begin{enumerate}\setlength{\itemsep}{.55em}
+\item Define the rule, outcome, and causal effect at the cutoff.
+\item Inspect support and construct informative RD plots.
+\item Estimate local polynomials with principled bandwidth selection.
+\item Use inference that accounts for smoothing bias and dependence.
+\item Assess predetermined outcomes, density, and specification sensitivity.
+\item State the effect's local policy scope and remaining threats.
+\end{enumerate}
+\F{Sections 2--6}
+\end{frame}

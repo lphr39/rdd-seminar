@@ -1,0 +1,194 @@
+\section{Extensions: applications}
+\begin{frame}[plain]{Extensions: empirical applications}
+\Large Applications after the theory
+\vspace{1em}\normalsize
+\begin{enumerate}\setlength{\itemsep}{.65em}
+\item Senate elections: local randomization
+\item Ser Pilo Paga: imperfect compliance
+\item Academic probation: a discrete score
+\item Ser Pilo Paga and media markets: multiple dimensions
+\end{enumerate}
+\src{Stata modules 2--6 and worksheets B--F. The sequence follows Extensions.}
+\end{frame}
+
+\begin{frame}{Senate elections and party advantage}
+\begin{items}
+\item \textbf{Units:} 1,390 U.S. Senate election observations in the teaching dataset.
+\item \textbf{Score:} Democratic margin of victory at election $t$.
+\item \textbf{Treatment:} a Democratic win at $t$.
+\item \textbf{Outcome:} Democratic vote share at election $t+2$, the next election for that same seat.
+\item Here $t+2$ indexes elections. It does not mean two calendar years later.
+\end{items}
+\src{\textcite{cft2015}; Extensions, Section 2.1.}
+\end{frame}
+
+\begin{frame}{The Senate outcome-score relationship}
+\fig[.73]{senate_plot.pdf}
+\src{Module 2. Separate linear descriptive fits and automatically chosen bins. Outcome and score use percentage units.}
+\end{frame}
+
+\begin{frame}[fragile]{Local randomization in Stata}
+\begin{lstlisting}
+local covs presdemvoteshlag1 demvoteshlag1 demvoteshlag2 ///
+    demwinprv1 demwinprv2 dmidterm dpresdem dopen
+rdwinselect X `covs', wobs(2) nwindows(50) approx seed(50)
+local wl=r(w_left)
+local wr=r(w_right)
+rdrandinf Y X, wl(`wl') wr(`wr') reps(10000) seed(50)
+\end{lstlisting}
+\begin{items}
+\item The selected window is approximately $[-0.7652,0.7652]$ pp.
+\item Balance tests choose the window. The outcome does not enter that selection.
+\end{items}
+\EX{Section 2.2; module 2}
+\end{frame}
+
+\begin{frame}{Cutoff and window estimates in the Senate data}
+\input{assets/senate.tex}
+\begin{items}
+\item The selected-window difference in means is $10.20$ percentage points.
+\item None of 10,000 simulated null assignments gives a statistic as extreme as observed.
+\item The Fisherian test concerns the sharp null of zero effect for every unit in the window.
+\item The cutoff estimate and window estimate have different target populations and assumptions.
+\end{items}
+\src{Module 2. Continuity table: percentage points, robust bias corrected interval.}
+\end{frame}
+
+\begin{frame}{Ser Pilo Paga and higher education access}
+\begin{items}
+\item Colombia's programme combines academic merit and economic need.
+\item The one-score sample contains 23,132 students who meet the academic requirement.
+\item $X1$ measures poverty eligibility with its sign oriented so $X1\geq0$ means eligible.
+\item $D$ records subsidy receipt. $Y$ records immediate enrolment in any higher education institution.
+\item Eligible students need not take up the subsidy, so receipt follows a fuzzy design.
+\end{items}
+\src{\textcite{londono2020}; Extensions, Section 3.1.}
+\end{frame}
+
+\begin{frame}{The SPP first stage}
+\fig[.73]{spp_D.pdf}
+\src{Module 3. The vertical scale is the proportion receiving the subsidy, not a percentage.}
+\end{frame}
+
+\begin{frame}{The SPP reduced form}
+\fig[.73]{spp_Y.pdf}
+\src{Module 3. The outcome is immediate higher education enrolment. The discontinuity estimates an eligibility effect.}
+\end{frame}
+
+\begin{frame}{Eligibility, take-up, and the receipt effect}
+\input{assets/fuzzy.tex}
+\begin{items}
+\item All effects and intervals in the table use percentage points.
+\item The fuzzy estimate is a receipt LATE for cutoff compliers under the stated assumptions.
+\item The first-stage row uses its own optimal bandwidth. Dividing the first two rows will not reproduce the joint fuzzy estimate.
+\end{items}
+\src{Module 3. A common-window calculation in the do-file reproduces the conventional Wald ratio.}
+\end{frame}
+
+\begin{frame}{A window selection failure in the SPP data}
+\begin{items}
+\item The module's approximate covariate balance procedure does not accept the smallest window at its stated threshold.
+\item It therefore selects no local randomization window.
+\item The code also shows the book's fixed $[-0.13,0.13]$ window as an explicitly labelled illustration.
+\item That calculation does not establish a credible local randomization analysis under the failed selection protocol.
+\end{items}
+\src{Module 3; Extensions, Sections 3.2--3.3. The teaching conclusion retains the failed diagnostic.}
+\end{frame}
+
+\begin{frame}{Academic probation and a discrete GPA score}
+\begin{items}
+\item The teaching dataset contains 40,582 students and 429 distinct score values.
+\item The original rule assigns probation below a campus-specific GPA standard.
+\item The supplied transformed score is positive for probation and negative for control.
+\item Exact original ties are controls. The authors encode them as $X=-0.000005$.
+\item Next-term GPA is observed only for students who continue at university, creating a potential outcome-selection problem.
+\end{items}
+\src{\textcite{lindo2010}; Extensions, Sections 4.1--4.2.}
+\end{frame}
+
+\begin{frame}{The mass points in the probation score}
+\fig[.73]{probation_histogram.pdf}
+\src{Module 4. The large overall sample does not remove the discrete support. Closest groups: 208 controls at $-0.000005$, 67 treated at $0.01$.}
+\end{frame}
+
+\begin{frame}{The probation outcome plot}
+\fig[.73]{probation_plot.pdf}
+\src{Module 4. The score orientation makes lower prior performance correspond to a higher transformed score.}
+\end{frame}
+
+\begin{frame}{The probation estimates and their limits}
+\input{assets/probation.tex}
+\begin{items}
+\item Outcome units: GPA points. A point estimate near $0.22$ is not 22 percentage points.
+\item In the closest two-score window, the difference is $0.234$ GPA points and the simulated Fisherian $p$-value is about $0.057$.
+\item Assignment counts and covariate diagnostics raise credibility questions. Clustering by score does not settle them.
+\end{items}
+\src{Module 4. GPA among observed continuers does not automatically identify a causal effect for a common survivor population.}
+\end{frame}
+
+\begin{frame}{SPP with three area-specific cutoffs}
+\begin{items}
+\item The merit-eligible sample faces different poverty thresholds by area.
+\item The supplied score reverses the original wealth-index sign.
+\item Metropolitan areas use $c=-57.21$, other urban areas $c=-56.32$, and rural areas $c=-40.75$.
+\item The outcome is enrolment, and the discontinuity is an eligibility effect.
+\item This dataset does not include receipt, so these estimates do not by themselves identify subsidy receipt LATEs.
+\end{items}
+\EX{Section 5.1.3; module 5}
+\end{frame}
+
+\begin{frame}{Cutoff-specific and pooled SPP effects}
+\input{assets/cutoffs.tex}
+\begin{items}
+\item Units: percentage points of immediate enrolment.
+\item Rural estimates are substantially less precise.
+\item The normalized pooled estimate can conceal differences across groups.
+\end{items}
+\src{Module 5. The do-file also reports rdmc's estimated aggregation weights.}
+\end{frame}
+
+\begin{frame}{SPP eligibility with both scores}
+\fig[.73]{spp_two_scores.pdf}
+\src{Module 6, reproducible 2\% plotting sample. Eligibility requires both centered scores to be nonnegative. Estimation uses the full supplied dataset.}
+\end{frame}
+
+\begin{frame}{SPP effects at different boundary points}
+\input{assets/boundary.tex}
+\begin{items}
+\item Coordinates are (poverty eligibility score, exam score), both centered.
+\item The data contain 574,269 student observations before outcome and score exclusions.
+\item Each row uses signed distance to its boundary point, in the authors' score units.
+\item These are eligibility effects in percentage points and need not coincide across locations.
+\end{items}
+\EX{Section 5.2.2; module 6}
+\end{frame}
+
+\begin{frame}{Political advertising at a media-market boundary}
+\fig[.73]{geographic_boundary.pdf}
+\src{Module 6; \textcite{keele2015}. Registered voters in New Jersey's West Windsor-Plainsboro school district. Outcome: turnout in the 2008 election.}
+\end{frame}
+
+\begin{frame}{Local support near the geographic boundary}
+\fig[.73]{geographic_distance.pdf}
+\src{Module 6. Signed chordal distance to the middle boundary point. The nearest treated and control locations remain roughly 0.31 and 0.42 km away.}
+\end{frame}
+
+\begin{frame}{Geographic estimates and uncertainty}
+\input{assets/geographic.tex}
+\begin{items}
+\item Units: percentage points of turnout. Point-specific fits use signed chordal kilometres.
+\item The robust intervals are wide. They allow substantively meaningful effects in both directions.
+\item Distance to the whole boundary pools locations and changes the target.
+\end{items}
+\src{Module 6; Extensions, Section 5.2.3. The reported baseline does not model spatial dependence.}
+\end{frame}
+
+\begin{frame}{Extensions exercises and discussion}
+\begin{items}
+\item \textbf{B:} distinguish the Senate cutoff effect, window effect, and Fisherian null.
+\item \textbf{C:} explain SPP eligibility effects, receipt LATEs, and window selection failure.
+\item \textbf{D:} evaluate the probation tie rule, support gap, and outcome selection.
+\item \textbf{E--F:} interpret pooling, boundary-specific effects, distance metrics, and geographic uncertainty.
+\end{items}
+\src{Worksheets B--F and Stata modules 2--6. Use selected modules in class and retain the others for a second lab.}
+\end{frame}

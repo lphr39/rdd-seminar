@@ -1,0 +1,331 @@
+{
+  "retrieved": "2026-10-28",
+  "replication_revisions": {
+    "CIT_2020_CUP": "62bb142c65a9b1fb3b593d405a97ce1bec17aa50",
+    "CIT_2024_CUP": "192a67d70ec095182fc1f08fccb90a7c20167f83"
+  },
+  "package_revisions": {
+    "rdpackages/rdrobust": "c5926e697ae02ff68397a454abdc53a01b42d87a",
+    "rdpackages/rddensity": "ccf5a20a24b821e20510819b821deef1240b8e45",
+    "rdpackages/rdlocrand": "d9954a8e296788a28b1bcf518d0b44edbcf18830",
+    "rdpackages/rdmulti": "001e06867b1c7ed158b268dba65b8b566791985d",
+    "nppackages/lpdensity": "c02aba70708454943a9503a2715cba3b4c4e5ced"
+  },
+  "files": [
+    {
+      "path": "cache/CIT_2020_CUP_polecon.dta",
+      "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2020_CUP/62bb142c65a9b1fb3b593d405a97ce1bec17aa50/CIT_2020_CUP_polecon.dta",
+      "sha256": "68bfc8729a82dfe61bef69e19d7c468db91e98347c393ebd451ddc1f7ca743d5"
+    },
+    {
+      "path": "cache/CIT_2020_CUP_polecon.do",
+      "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2020_CUP/62bb142c65a9b1fb3b593d405a97ce1bec17aa50/CIT_2020_CUP_polecon.do",
+      "sha256": "006adb0581872c92afadc96fcebd000d486df950d69623e7b798bda1a010d290"
+    },
+    {
+      "path": "cache/CIT_2024_CUP_locrand.dta",
+      "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_locrand.dta",
+      "sha256": "7982fe5fb2671f7e1cc0fa92fd0810983f8cb1c51e1286fd6f009f34a14b92d8"
+    },
+    {
+      "path": "cache/CIT_2024_CUP_locrand.do",
+      "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_locrand.do",
+      "sha256": "5b29c402b7f3ab5097243bfb4e499cdd877677556700d4157a73b6f3f8ee8fb3"
+    },
+    {
+      "path": "cache/CIT_2024_CUP_fuzzy.dta",
+      "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_fuzzy.dta",
+      "sha256": "705d61f5b367e83494dd7309b4a623d611e85249cf0ea300d3ffbe8c20d3b45b"
+    },
+    {
+      "path": "cache/CIT_2024_CUP_fuzzy.do",
+      "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_fuzzy.do",
+      "sha256": "30d053df9b1abb6361c1678898252d60bf086cae79b422fbc90b9d1ab5414bc4"
+    },
+    {
+      "path": "cache/CIT_2024_CUP_discrete.dta",
+      "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_discrete.dta",
+      "sha256": "75430b112d230b47cd15326510680f6e3b117f6a1ad0db1ff118b9092c7d8a4c"
+    },
+    {
+      "path": "cache/CIT_2024_CUP_discrete.do",
+      "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_discrete.do",
+      "sha256": "6e52974f5a0e793969ed6b95bca01f7b7b194cf219a54cd002432de4510abeb4"
+    },
+    {
+      "path": "cache/CIT_2024_CUP_multicutoff.dta",
+      "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_multicutoff.dta",
+      "sha256": "e3433dbe04ebd92dd93e71a5f54c3eae26798b44ff7361e8e808d09779e34d89"
+    },
+    {
+      "path": "cache/CIT_2024_CUP_multicutoff.do",
+      "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_multicutoff.do",
+      "sha256": "90a14ea9f1b8ab8a7757b89418e43e54e3e9fb430234878e4175a0ee1dd1ed79"
+    },
+    {
+      "path": "cache/CIT_2024_CUP_multiscore-nongeo.dta",
+      "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_multiscore-nongeo.dta",
+      "sha256": "f55325123be69e191ba9abc5e3131b1c450cc792a084d10e4e9c2d4cd5d07d14"
+    },
+    {
+      "path": "cache/CIT_2024_CUP_multiscore-nongeo.do",
+      "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_multiscore-nongeo.do",
+      "sha256": "da126306478074c1271b3ffb772803f8c07f3548f7098657243d7fc9f6245be6"
+    },
+    {
+      "path": "cache/CIT_2024_CUP_multiscore-geo.dta",
+      "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_multiscore-geo.dta",
+      "sha256": "2d1c394b7513a567a6022daf89135ae220878a10527b989a93402cb80561ab86"
+    },
+    {
+      "path": "cache/CIT_2024_CUP_multiscore-geo.do",
+      "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_multiscore-geo.do",
+      "sha256": "016276e0abf0dad644390a557e43fff8ada6db81c2a50ff0c4500105153ca093"
+    },
+    {
+      "path": "cache/ado/rdbwselect.ado",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdrobust/c5926e697ae02ff68397a454abdc53a01b42d87a/stata/rdbwselect.ado",
+      "sha256": "9ffd23d0617d9ccb4e3c1fdeb025d8488cb42e5d6a9edd066c6d16baf9fdbfe7"
+    },
+    {
+      "path": "cache/ado/rdplot.ado",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdrobust/c5926e697ae02ff68397a454abdc53a01b42d87a/stata/rdplot.ado",
+      "sha256": "80b07ab6e2186661050b518b02bb62f47cf61b96a7bddf8b44d6242669598837"
+    },
+    {
+      "path": "cache/ado/rdplot.sthlp",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdrobust/c5926e697ae02ff68397a454abdc53a01b42d87a/stata/rdplot.sthlp",
+      "sha256": "1b9f57681ee5e4f4a13a155d316d933bf92d62161bf47d568ddab8187aaf8b71"
+    },
+    {
+      "path": "cache/ado/rdplot_illustration.do",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdrobust/c5926e697ae02ff68397a454abdc53a01b42d87a/stata/rdplot_illustration.do",
+      "sha256": "0b72b5ef5d2f3382546997f9ef815e22f6cad3792c8ffcc6871354b06af96ad6"
+    },
+    {
+      "path": "cache/ado/rdbwselect.sthlp",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdrobust/c5926e697ae02ff68397a454abdc53a01b42d87a/stata/rdbwselect.sthlp",
+      "sha256": "3c33a0f075bf51f98bad1d9124e73de60038c57af1fbf14489600d3856099f69"
+    },
+    {
+      "path": "cache/ado/rdrobust.ado",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdrobust/c5926e697ae02ff68397a454abdc53a01b42d87a/stata/rdrobust.ado",
+      "sha256": "142ea0bf69febdc3a94482dc972e88eb239c7257f06f7f197036e65fd4778355"
+    },
+    {
+      "path": "cache/ado/rdrobust.sthlp",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdrobust/c5926e697ae02ff68397a454abdc53a01b42d87a/stata/rdrobust.sthlp",
+      "sha256": "9e3945d1dd98e125144ec9e153f1b072e6121514a9866f14629c25ca11368633"
+    },
+    {
+      "path": "cache/ado/rdrobustplot.ado",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdrobust/c5926e697ae02ff68397a454abdc53a01b42d87a/stata/rdrobustplot.ado",
+      "sha256": "b255c252fcc19effb0bd73e19d48e2af78e3c9d116446caff54d174492f70093"
+    },
+    {
+      "path": "cache/ado/rdrobustplot.sthlp",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdrobust/c5926e697ae02ff68397a454abdc53a01b42d87a/stata/rdrobustplot.sthlp",
+      "sha256": "f27fc238cf1e2f2f3c266715586dbfecfb7646cd3d2cd1de2c830fd64866ea38"
+    },
+    {
+      "path": "cache/ado/lrdrobust.mlib",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdrobust/c5926e697ae02ff68397a454abdc53a01b42d87a/stata/lrdrobust.mlib",
+      "sha256": "4908eade1af557d46f77dc2f175bb1352d62c25b064a54d45379ad9244e04af7"
+    },
+    {
+      "path": "cache/ado/rdrobust_illustration.do",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdrobust/c5926e697ae02ff68397a454abdc53a01b42d87a/stata/rdrobust_illustration.do",
+      "sha256": "87d54aa7527ca7b7b2381030c838a7afac49a2004550c1ae85bf8d13dd476cfc"
+    },
+    {
+      "path": "cache/ado/rdrobust_illustration_new.do",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdrobust/c5926e697ae02ff68397a454abdc53a01b42d87a/stata/rdrobust_illustration_new.do",
+      "sha256": "53d6611bbae055d334572f660eff248a624395e2e85e9a65c579d57d3c5873e4"
+    },
+    {
+      "path": "cache/ado/rdrobust_senate.dta",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdrobust/c5926e697ae02ff68397a454abdc53a01b42d87a/stata/rdrobust_senate.dta",
+      "sha256": "cbf8b6fcf832fd7cde817a0332a8151ecec255aa7081afdf2e98c53bd197a60a"
+    },
+    {
+      "path": "cache/ado/rdbwdensity.ado",
+      "url": "https://raw.githubusercontent.com/rdpackages/rddensity/ccf5a20a24b821e20510819b821deef1240b8e45/stata/rdbwdensity.ado",
+      "sha256": "1e5a2ae7435d22fab714734a1738c172f967033870791a66f410f88af4897005"
+    },
+    {
+      "path": "cache/ado/rdbwdensity.sthlp",
+      "url": "https://raw.githubusercontent.com/rdpackages/rddensity/ccf5a20a24b821e20510819b821deef1240b8e45/stata/rdbwdensity.sthlp",
+      "sha256": "9cdc2160c3ae6e769c1a416c17df9151a595544b244e8fb7c6703a88e020e184"
+    },
+    {
+      "path": "cache/ado/rddensity.ado",
+      "url": "https://raw.githubusercontent.com/rdpackages/rddensity/ccf5a20a24b821e20510819b821deef1240b8e45/stata/rddensity.ado",
+      "sha256": "5fcc419ab5671b2ffd17db96fe2ea6ad08a91ddd1693d1a20c7d752cc4f22ebe"
+    },
+    {
+      "path": "cache/ado/rddensity.sthlp",
+      "url": "https://raw.githubusercontent.com/rdpackages/rddensity/ccf5a20a24b821e20510819b821deef1240b8e45/stata/rddensity.sthlp",
+      "sha256": "6c0026f34bc54d450636311642bd3f9fc7c5bba4f759271164073b943394c477"
+    },
+    {
+      "path": "cache/ado/rddensity_fun.do",
+      "url": "https://raw.githubusercontent.com/rdpackages/rddensity/ccf5a20a24b821e20510819b821deef1240b8e45/stata/rddensity_fun.do",
+      "sha256": "cda3c7d025be6171909fac439e0cba907f0a552eac26b96dc67bd9a4f7830d38"
+    },
+    {
+      "path": "cache/ado/lrddensity.mlib",
+      "url": "https://raw.githubusercontent.com/rdpackages/rddensity/ccf5a20a24b821e20510819b821deef1240b8e45/stata/lrddensity.mlib",
+      "sha256": "77689520d44946f6e80a9fb294e4c26be1ac60fd34c2de1df6c30a6764c2abc9"
+    },
+    {
+      "path": "cache/ado/rddensity_senate.dta",
+      "url": "https://raw.githubusercontent.com/rdpackages/rddensity/ccf5a20a24b821e20510819b821deef1240b8e45/stata/rddensity_senate.dta",
+      "sha256": "436b54fc4d1af2543a9640b0582595f96126ac599a2669103980f8521e923756"
+    },
+    {
+      "path": "cache/ado/rdwinselect.ado",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdlocrand/d9954a8e296788a28b1bcf518d0b44edbcf18830/stata/rdwinselect.ado",
+      "sha256": "8220a32fe050bd3f8d6a6bda1840792d2f1d4624cca5d81ebc73d3478084640d"
+    },
+    {
+      "path": "cache/ado/rdwinselect.sthlp",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdlocrand/d9954a8e296788a28b1bcf518d0b44edbcf18830/stata/rdwinselect.sthlp",
+      "sha256": "e0e6a7648eab063988464309c747db5815ddac983022e5e86d21e71da1f44e88"
+    },
+    {
+      "path": "cache/ado/rdrandinf.ado",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdlocrand/d9954a8e296788a28b1bcf518d0b44edbcf18830/stata/rdrandinf.ado",
+      "sha256": "25be77cab65bdea0ecea4bc7ad696004697c7e054c0a8e6a4997ba1b8643f08e"
+    },
+    {
+      "path": "cache/ado/rdrandinf.sthlp",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdlocrand/d9954a8e296788a28b1bcf518d0b44edbcf18830/stata/rdrandinf.sthlp",
+      "sha256": "b6760dcf382d4f93c79634788eb7f988f6d35658e427d156e12b0fcf76b6c6ef"
+    },
+    {
+      "path": "cache/ado/rdsensitivity.ado",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdlocrand/d9954a8e296788a28b1bcf518d0b44edbcf18830/stata/rdsensitivity.ado",
+      "sha256": "3a69a70a6058867c14eaad06b0d653ac4e396f3545d734ab66a700c519085482"
+    },
+    {
+      "path": "cache/ado/rdsensitivity.sthlp",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdlocrand/d9954a8e296788a28b1bcf518d0b44edbcf18830/stata/rdsensitivity.sthlp",
+      "sha256": "237c12f7ad1cd478e9fc3849025f89f4daaf37906bf95291a03e6a0efd3c2023"
+    },
+    {
+      "path": "cache/ado/rdrbounds.ado",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdlocrand/d9954a8e296788a28b1bcf518d0b44edbcf18830/stata/rdrbounds.ado",
+      "sha256": "07e530dea12afc51e18325dff609477351801f217039dc924ffa2c9e60c8cd15"
+    },
+    {
+      "path": "cache/ado/rdrbounds.sthlp",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdlocrand/d9954a8e296788a28b1bcf518d0b44edbcf18830/stata/rdrbounds.sthlp",
+      "sha256": "472a70ac3b55b6ac1836634823e43a11827542729f6fde40f153ad6e55e697fe"
+    },
+    {
+      "path": "cache/ado/rdrandinf_model.ado",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdlocrand/d9954a8e296788a28b1bcf518d0b44edbcf18830/stata/rdrandinf_model.ado",
+      "sha256": "4480edf490a6952b5ca3906c68d38bc42d973eeb81047e3a1ca025cbaff22915"
+    },
+    {
+      "path": "cache/ado/rdwinselect_allcovs.ado",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdlocrand/d9954a8e296788a28b1bcf518d0b44edbcf18830/stata/rdwinselect_allcovs.ado",
+      "sha256": "a9817bc2b1ef11351a272d449a9d026dcc3208b08d305982f6c713ce656b939f"
+    },
+    {
+      "path": "cache/ado/lrdlocrand.mlib",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdlocrand/d9954a8e296788a28b1bcf518d0b44edbcf18830/stata/lrdlocrand.mlib",
+      "sha256": "7ada37a2d96137602cbd01c5ac56522318cf9bb35ecbcae2ed286a6e134723c0"
+    },
+    {
+      "path": "cache/ado/rdlocrand_illustration.do",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdlocrand/d9954a8e296788a28b1bcf518d0b44edbcf18830/stata/rdlocrand_illustration.do",
+      "sha256": "b54125b0318e594ff3b344629c62965a4eb9223a6c08588dda244c6bfc107a82"
+    },
+    {
+      "path": "cache/ado/rdlocrand_senate.dta",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdlocrand/d9954a8e296788a28b1bcf518d0b44edbcf18830/stata/rdlocrand_senate.dta",
+      "sha256": "bd236c01ccc9252ca819107914665748701a7e37ace58ba2c571bb404a5ba0c3"
+    },
+    {
+      "path": "cache/ado/rdlocrand_inference.ado",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdlocrand/d9954a8e296788a28b1bcf518d0b44edbcf18830/stata/rdlocrand_inference.ado",
+      "sha256": "ebf4f1587e29b04e325005e0e2bf6ae13302da0245c0e7e4e898d094bd275fca"
+    },
+    {
+      "path": "cache/ado/rdlocrand_hc.ado",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdlocrand/d9954a8e296788a28b1bcf518d0b44edbcf18830/stata/rdlocrand_hc.ado",
+      "sha256": "af9a325b9fd85f81569c6fca95d3f90191009561750bd4580c4f7d220846c362"
+    },
+    {
+      "path": "cache/ado/rdmc.ado",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdmulti/001e06867b1c7ed158b268dba65b8b566791985d/stata/rdmc.ado",
+      "sha256": "e7476d2e210d200dbc7cba8356d6fdcafd61f8ad38c0a6e22f5abf94af1ae9d3"
+    },
+    {
+      "path": "cache/ado/rdmc.sthlp",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdmulti/001e06867b1c7ed158b268dba65b8b566791985d/stata/rdmc.sthlp",
+      "sha256": "08ca9c00a7705faf3eba173bb503669d3bf8606297cc904368f539ebb402fe85"
+    },
+    {
+      "path": "cache/ado/rdmcplot.ado",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdmulti/001e06867b1c7ed158b268dba65b8b566791985d/stata/rdmcplot.ado",
+      "sha256": "42d749324eb03bf2b6458d942d9a4f4f2f5613c1d657891d234fe49a22d4b1ae"
+    },
+    {
+      "path": "cache/ado/rdmcplot.sthlp",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdmulti/001e06867b1c7ed158b268dba65b8b566791985d/stata/rdmcplot.sthlp",
+      "sha256": "c019f279ffe35ee80a537351713698900d5c4b360c1091092ea803b2e313e12d"
+    },
+    {
+      "path": "cache/ado/rdms.ado",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdmulti/001e06867b1c7ed158b268dba65b8b566791985d/stata/rdms.ado",
+      "sha256": "32e4bfcc548250e2b22afc4799d542e3b15b52b1822fcafec8a5326f413537a5"
+    },
+    {
+      "path": "cache/ado/rdms.sthlp",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdmulti/001e06867b1c7ed158b268dba65b8b566791985d/stata/rdms.sthlp",
+      "sha256": "8d2d708b5f49d75e5e436f7b81f9e5408d4d93bbc405b44dcc1b34b1939dd89d"
+    },
+    {
+      "path": "cache/ado/lrdmulti.mlib",
+      "url": "https://raw.githubusercontent.com/rdpackages/rdmulti/001e06867b1c7ed158b268dba65b8b566791985d/stata/lrdmulti.mlib",
+      "sha256": "b92a94cd2420766dfbf1d776ec6eec9d79c4981e5b67127b0216bf55e00c1aec"
+    },
+    {
+      "path": "cache/ado/lpbwdensity.ado",
+      "url": "https://raw.githubusercontent.com/nppackages/lpdensity/c02aba70708454943a9503a2715cba3b4c4e5ced/stata/lpbwdensity.ado",
+      "sha256": "0f8e38d90179749ba9d835f5a403c285de605e8449970e311d399fb15d8d5340"
+    },
+    {
+      "path": "cache/ado/lpbwdensity.sthlp",
+      "url": "https://raw.githubusercontent.com/nppackages/lpdensity/c02aba70708454943a9503a2715cba3b4c4e5ced/stata/lpbwdensity.sthlp",
+      "sha256": "c47863de99c7c6a0af340211876a4785bdb83360bdba35ee709b68bf5570a3f8"
+    },
+    {
+      "path": "cache/ado/lpdensity.ado",
+      "url": "https://raw.githubusercontent.com/nppackages/lpdensity/c02aba70708454943a9503a2715cba3b4c4e5ced/stata/lpdensity.ado",
+      "sha256": "b4bf05ee1ebc5281cc373d6478174f07968b96bba4d0a6a3a1cacd5294758c73"
+    },
+    {
+      "path": "cache/ado/lpdensity.sthlp",
+      "url": "https://raw.githubusercontent.com/nppackages/lpdensity/c02aba70708454943a9503a2715cba3b4c4e5ced/stata/lpdensity.sthlp",
+      "sha256": "0fc9faf71f1fb2f8410f9eb0555f25a1b40719ba5616a2aa8550485e5f323c6a"
+    },
+    {
+      "path": "cache/ado/lpdensity.mlib",
+      "url": "https://raw.githubusercontent.com/nppackages/lpdensity/c02aba70708454943a9503a2715cba3b4c4e5ced/stata/lpdensity.mlib",
+      "sha256": "b16638c4a56526ab45b66c343146459b442802105566e88a39a232d1efa1d2f2"
+    },
+    {
+      "path": "cache/ado/lpdensity_fun.do",
+      "url": "https://raw.githubusercontent.com/nppackages/lpdensity/c02aba70708454943a9503a2715cba3b4c4e5ced/stata/lpdensity_fun.do",
+      "sha256": "9df009ecb3a1ecda79e9363d9c03de5b627ef27af72782ed543e2dcd1e13c8dd"
+    },
+    {
+      "path": "cache/ado/lpdensity_illustration.do",
+      "url": "https://raw.githubusercontent.com/nppackages/lpdensity/c02aba70708454943a9503a2715cba3b4c4e5ced/stata/lpdensity_illustration.do",
+      "sha256": "536fef1fe5514aebbc700fd11b6eb1b3b4925ec7c42811d2132b5907c195e879"
+    }
+  ]
+}

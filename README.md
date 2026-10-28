@@ -1,66 +1,66 @@
 # Regression Discontinuity Designs
 
-Seminar materials by Luis P. de la Horra, Universidad de Valladolid. The seminar covers sharp and fuzzy regression discontinuity designs, followed by a Stata exercise on DUI sanctions and recidivism using a teaching extract of Hansen (2015).
+Seminar materials by Luis P. de la Horra, Universidad de Valladolid. Two independent English teaching tracks share this repository. Each has its own presentation, editable LaTeX sources, Stata exercises, and saved empirical results.
 
-The presentation is designed for 50–55 minutes plus a 20-minute exercise. It contains 45 main slides, 10 supplementary slides, and four reference pages. All teaching materials are in English.
+| Track | Presentation | Exercises | Scope |
+|---|---|---|---|
+| **Mixtape / Remix** | [PDF](mixtape/presentation/rdd_seminar.pdf), [LaTeX](mixtape/presentation/rdd_seminar.tex) | [Hansen do-file](mixtape/exercises/hansen_seminar.do), [instructions](mixtape/exercises/README.md) | Original 50-55 minute presentation and 20-minute Hansen exercise |
+| **Cattaneo, Idrobo, and Titiunik** | [PDF](cattaneo/presentation/rdd_cattaneo.pdf), [LaTeX](cattaneo/presentation/rdd_cattaneo.tex) | [Stata wrapper](cattaneo/exercises/run_all.do), [worksheets](cattaneo/exercises/WORKSHEET.md), [instructions](cattaneo/exercises/README.md) | Longer course based on both Foundations (2020) and Extensions (2024) |
 
-- [Presentation (PDF)](presentation/rdd_seminar.pdf)
-- [Editable presentation (LaTeX)](presentation/rdd_seminar.tex)
-- [Hansen exercise (Stata do-file)](presentation/practical/hansen_seminar.do)
-- [Saved exercise figures and tables](presentation/practical/hansen_results/)
-- [Bibliography](presentation/references.bib)
-- [Sources and attribution](SOURCES.md)
+## Organization
 
-## Run the Stata exercise
-
-Use Stata 18 or later. Set the working directory to `presentation/practical`, then run the entire do-file:
-
-```stata
-do "hansen_seminar.do"
+```text
+mixtape/
+  presentation/       original deck, bibliography, included figures, build script
+  exercises/          Hansen exercise and hansen_results/
+cattaneo/
+  presentation/       second deck, bibliography, theoretical figures, build scripts
+  exercises/          six Stata modules, worksheets, source lock, results/
 ```
 
-If the working directory differs, the script asks you to select the do-file so it can locate the exercise folder. For scripted execution, pass that folder as the optional argument:
+Study notes, downloaded readings, data/package caches, execution logs, and build or review files are excluded from Git. The notes remain available locally.
 
-```stata
-do "/path/to/rdd-seminar/presentation/practical/hansen_seminar.do" "/path/to/rdd-seminar/presentation/practical"
-```
+The former `presentation/` repository paths now live under `mixtape/`. Relative paths in the original deck and table builder have been updated. Its content and the Hansen exercise remain available as a separate track.
 
-On the first run, the script downloads [Scott Cunningham's public teaching extract](https://raw.githubusercontent.com/scunning1975/causal-inference-class/master/hansen_dwi.dta) and installs missing commands: `rdrobust`, `rddensity`, `lpdensity`, and `cmogram`. Internet access is required for those downloads. Subsequent runs use the cached dataset and installed commands. Stata itself is required separately.
+## Cattaneo track: theory before practice
 
-The extract has 214,558 observations. This exercise reproduces the chapter's analysis of that extract, rather than the full original paper. All generated files go into `presentation/practical/hansen_results/`; rerunning replaces outputs with the same names. The repository includes saved PNG figures, editable Stata graphs, and CSV tables. The cached dataset and execution logs stay local.
+The deck has 108 teaching slides followed by two reference pages. It follows the manuals' theoretical progression, with empirical examples at the end of each part:
 
-The running variable contains repeated BAC values. A `Mass points detected in the running variable` message is a diagnostic notice, and the script retains `masspoints(adjust)`. The adjustment does not resolve every inference issue arising from discrete scores.
+1. **Foundations theory:** sharp RD and its local effect, RD plots, local polynomial estimation, inference, covariates, clustering, validation and falsification.
+2. **Foundations application:** Turkish municipal elections and women's education.
+3. **Extensions theory:** local randomization, fuzzy RD, discrete scores, multiple cutoffs, multiple scores and geographic boundaries.
+4. **Extensions applications:** U.S. Senate elections, Ser Pilo Paga, academic probation, and media-market boundaries.
 
-## Build the presentation
+See the [teaching guide](cattaneo/README.md) for source mapping, slide ranges, and pacing. This is a course-length resource that can span several sessions. All empirical tables use saved output from the accompanying Stata code.
 
-The PDF is ready to present. To rebuild it, install Python 3 (standard library only) and a LaTeX distribution with pdfLaTeX, Biber, Beamer, Latin Modern, and the packages declared in the source. All required figures and exercise tables are included, so rebuilding the presentation does not require running Stata or downloading the resource PDFs.
-
-On Windows, run from the `presentation` folder:
-
-```powershell
-.\build.cmd
-```
-
-On other systems, run from the same folder:
+From `cattaneo/exercises`, prepare the pinned data and isolated Stata packages:
 
 ```sh
-mkdir -p build
-python3 build_tables.py
-pdflatex -interaction=nonstopmode -halt-on-error -output-directory=build rdd_seminar.tex
-biber --input-directory=build --output-directory=build rdd_seminar
-pdflatex -interaction=nonstopmode -halt-on-error -output-directory=build rdd_seminar.tex
-pdflatex -interaction=nonstopmode -halt-on-error -output-directory=build rdd_seminar.tex
-cp build/rdd_seminar.pdf rdd_seminar.pdf
+python fetch_sources.py
 ```
 
-If the exercise analysis changes, rerun the Stata do-file before rebuilding. The build regenerates the slide tables from the saved CSV files and compiles the slides; it does not rerun the empirical analysis.
+Then in Stata 18, with that directory as the working directory:
 
-## Readings
+```stata
+do "run_all.do"
+```
 
-The seminar follows [Scott Cunningham's *Causal Inference: The Remix*](https://mixtape.scunning.com/), Chapter 6 and the fuzzy RD subsection of Chapter 7. Further reading:
+Use `do "run_all.do" "1"` through `"6"` for individual modules. The full analysis can take several minutes, particularly the randomization simulations. PDFs, graphs, and CSV tables are included for teaching without rerunning Stata.
 
-- Cattaneo, Idrobo, and Titiunik (2020), [*A Practical Introduction to Regression Discontinuity Designs: Foundations*](https://doi.org/10.1017/9781108684606).
-- Cattaneo, Idrobo, and Titiunik (2024), [*A Practical Introduction to Regression Discontinuity Designs: Extensions*](https://doi.org/10.1017/9781009441896).
-- Hansen (2015), [“Punishment and Deterrence: Evidence from Drunk Driving”](https://doi.org/10.1257/aer.20130189).
+## Rebuilding the presentations
 
-Original studies are cited on the relevant slides. See [SOURCES.md](SOURCES.md) and the figure provenance file for attribution.
+Both tracks require Python 3 and a LaTeX distribution with pdfLaTeX, Biber, Beamer, Latin Modern, and the packages declared in the sources. Python build scripts use the standard library. All figures needed for compilation are included.
+
+- From `mixtape/presentation` on Windows: `build.cmd`.
+- From `cattaneo/presentation`: `python build.py` (or `build.cmd` on Windows).
+
+Rebuilding uses saved exercise CSVs and does not rerun empirical analysis or fetch readings. See each presentation's README for platform-independent commands and details. Optional figure refresh scripts require additional packages and local source readings.
+
+## Readings and attribution
+
+- Cunningham, [Causal Inference: The Remix](https://mixtape.scunning.com/), Chapter 6 and the fuzzy RD discussion in Chapter 7.
+- Cattaneo, Idrobo, and Titiunik (2020), [A Practical Introduction to Regression Discontinuity Designs: Foundations](https://doi.org/10.1017/9781108684606).
+- Cattaneo, Idrobo, and Titiunik (2024), [A Practical Introduction to Regression Discontinuity Designs: Extensions](https://doi.org/10.1017/9781009441896).
+- Authors' [official replication index](https://rdpackages.github.io/replication/).
+
+See [SOURCES.md](SOURCES.md) for empirical studies, figure provenance, and source-code attribution. Each track has its own bibliography. Third-party material retains its authors' applicable terms.

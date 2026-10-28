@@ -1,0 +1,178 @@
+[
+  {
+    "file": "sharp_assignment.pdf",
+    "authors": "Cattaneo, Idrobo, and Titiunik",
+    "year": "2020",
+    "figure": 1,
+    "pdf_page": 12,
+    "printed_page": 6,
+    "clip": [
+      102,
+      53,
+      342,
+      260
+    ],
+    "source": "User-supplied Cattaneo et al. (2020).pdf",
+    "transformation": "Vector crop of theoretical figure; no substantive modification"
+  },
+  {
+    "file": "sharp_effect.pdf",
+    "authors": "Cattaneo, Idrobo, and Titiunik",
+    "year": "2020",
+    "figure": 2,
+    "pdf_page": 14,
+    "printed_page": 8,
+    "clip": [
+      101,
+      53,
+      342,
+      301
+    ],
+    "source": "User-supplied Cattaneo et al. (2020).pdf",
+    "transformation": "Vector crop of theoretical figure; no substantive modification"
+  },
+  {
+    "file": "local_polynomial.pdf",
+    "authors": "Cattaneo, Idrobo, and Titiunik",
+    "year": "2020",
+    "figure": 12,
+    "pdf_page": 43,
+    "printed_page": 37,
+    "clip": [
+      58,
+      53,
+      365,
+      338
+    ],
+    "source": "User-supplied Cattaneo et al. (2020).pdf",
+    "transformation": "Vector crop of theoretical figure; no substantive modification"
+  },
+  {
+    "file": "approximation_bias.pdf",
+    "authors": "Cattaneo, Idrobo, and Titiunik",
+    "year": "2020",
+    "figure": 14,
+    "pdf_page": 45,
+    "printed_page": 39,
+    "clip": [
+      59,
+      53,
+      365,
+      302
+    ],
+    "source": "User-supplied Cattaneo et al. (2020).pdf",
+    "transformation": "Vector crop of theoretical figure; no substantive modification"
+  },
+  {
+    "file": "experiment_rd.pdf",
+    "authors": "Cattaneo, Idrobo, and Titiunik",
+    "year": "2024",
+    "figure": 2,
+    "pdf_page": 14,
+    "printed_page": 8,
+    "clip": [
+      62,
+      53,
+      365,
+      193
+    ],
+    "source": "User-supplied Cattaneo et al. (2024).pdf",
+    "transformation": "Vector crop of theoretical figure; no substantive modification"
+  },
+  {
+    "file": "local_randomization.pdf",
+    "authors": "Cattaneo, Idrobo, and Titiunik",
+    "year": "2024",
+    "figure": 3,
+    "pdf_page": 17,
+    "printed_page": 11,
+    "clip": [
+      90,
+      53,
+      350,
+      255
+    ],
+    "source": "User-supplied Cattaneo et al. (2024).pdf",
+    "transformation": "Vector crop of theoretical figure; no substantive modification"
+  },
+  {
+    "file": "sharp_fuzzy.pdf",
+    "authors": "Cattaneo, Idrobo, and Titiunik",
+    "year": "2024",
+    "figure": 7,
+    "pdf_page": 43,
+    "printed_page": 37,
+    "clip": [
+      61,
+      53,
+      377,
+      190
+    ],
+    "source": "User-supplied Cattaneo et al. (2024).pdf",
+    "transformation": "Vector crop of theoretical figure; no substantive modification"
+  },
+  {
+    "file": "cutoff_types.pdf",
+    "authors": "Cattaneo, Idrobo, and Titiunik",
+    "year": "2024",
+    "figure": 12,
+    "pdf_page": 86,
+    "printed_page": 80,
+    "clip": [
+      57,
+      53,
+      365,
+      248
+    ],
+    "source": "User-supplied Cattaneo et al. (2024).pdf",
+    "transformation": "Vector crop of theoretical figure; no substantive modification"
+  },
+  {
+    "file": "cutoff_effects.pdf",
+    "authors": "Cattaneo, Idrobo, and Titiunik",
+    "year": "2024",
+    "figure": 13,
+    "pdf_page": 88,
+    "printed_page": 82,
+    "clip": [
+      62,
+      53,
+      365,
+      254
+    ],
+    "source": "User-supplied Cattaneo et al. (2024).pdf",
+    "transformation": "Vector crop of theoretical figure; no substantive modification"
+  },
+  {
+    "file": "cutoff_extrapolation.pdf",
+    "authors": "Cattaneo, Idrobo, and Titiunik",
+    "year": "2024",
+    "figure": 14,
+    "pdf_page": 91,
+    "printed_page": 85,
+    "clip": [
+      62,
+      53,
+      377,
+      251
+    ],
+    "source": "User-supplied Cattaneo et al. (2024).pdf",
+    "transformation": "Vector crop of theoretical figure; no substantive modification"
+  },
+  {
+    "file": "multiscore_regions.pdf",
+    "authors": "Cattaneo, Idrobo, and Titiunik",
+    "year": "2024",
+    "figure": 16,
+    "pdf_page": 97,
+    "printed_page": 91,
+    "clip": [
+      64,
+      53,
+      377,
+      201
+    ],
+    "source": "User-supplied Cattaneo et al. (2024).pdf",
+    "transformation": "Vector crop of theoretical figure; no substantive modification"
+  }
+]

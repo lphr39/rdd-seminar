@@ -1,0 +1,381 @@
+\section{Extensions: theory}
+\begin{frame}[plain]{Part II: Extensions}
+\Large Departures from the canonical sharp RD setup
+\vspace{1em}\normalsize
+\begin{enumerate}\setlength{\itemsep}{.7em}
+\item Local randomization
+\item Fuzzy RD
+\item Discrete running variables
+\item Multiple cutoffs and multiple scores
+\end{enumerate}
+\EX{Sections 1--5}
+\end{frame}
+
+\subsection{Local randomization}
+\begin{frame}{Continuity and local randomization}
+\fig[.60]{experiment_rd.pdf}
+\begin{items}
+\item Continuity allows potential outcome means to vary with the score.
+\item Local randomization explicitly models assignment in a fixed window.
+\end{items}
+\EX{Section 2, Figure 2}
+\end{frame}
+
+\begin{frame}{The local randomization assumptions}
+Choose a window $\mathcal W=[c-w,c+w]$ around the cutoff.
+\begin{items}
+\item \textbf{LR1:} within $\mathcal W$, the score is unconfounded with potential outcomes and the treatment assignment mechanism is known.
+\item \textbf{LR2:} within $\mathcal W$, changing the score has no direct effect on potential outcomes.
+\item Both assumptions need substantive justification in the chosen window.
+\item Randomness in the score alone does not rule out a direct score effect.
+\end{items}
+\EX{Section 2, conditions LR1--LR2}
+\end{frame}
+
+\begin{frame}{A different estimand inside the window}
+\begin{columns}
+\begin{column}{.54\textwidth}\fig[.64]{local_randomization.pdf}\end{column}
+\begin{column}{.43\textwidth}
+For fixed potential outcomes,
+\[
+\theta_{\mathcal W}=\frac{1}{N_{\mathcal W}}
+\sum_{i:X_i\in\mathcal W}[Y_i(1)-Y_i(0)].
+\]
+This is a window average.\\[.7em]
+The continuity target $\tau_{\mathrm{SRD}}$ is an average at $X=c$.
+\end{column}
+\end{columns}
+\EX{Sections 2 and 2.2.2, Figure 3}
+\end{frame}
+
+\begin{frame}{The assignment mechanism}
+\begin{items}
+\item \textbf{Complete randomization:} condition on the observed number treated in the window. All assignments with that count have equal probability.
+\item \textbf{Bernoulli assignment:} each unit receives treatment with a specified probability, allowing the treated count to vary.
+\item These mechanisms imply different randomization distributions.
+\item Choosing one is part of the research design and needs justification.
+\end{items}
+\EX{Section 2.2.1}
+\end{frame}
+
+\begin{frame}{Fisherian inference}
+The sharp null specifies every unit's treatment effect:
+\[
+H_0^F:\ Y_i(1)=Y_i(0)\quad\text{for every }i\text{ in }\mathcal W.
+\]
+\begin{enumerate}\setlength{\itemsep}{.5em}
+\item Under this null, impute all missing potential outcomes.
+\item Reassign treatment according to the stated mechanism.
+\item Recalculate a statistic, such as the difference in means.
+\item Compare the observed statistic with this randomization distribution.
+\end{enumerate}
+\EX{Section 2.2.1}
+\end{frame}
+
+\begin{frame}{Exact tests and Monte Carlo approximations}
+\begin{items}
+\item Enumerating every permissible assignment gives the finite assignment distribution under the sharp null.
+\item Simulation approximates that distribution when enumeration is costly.
+\item A fixed seed makes the simulation reproducible. More draws reduce Monte Carlo error.
+\item A displayed simulation $p$-value of zero means no simulated draw was as extreme. It is not evidence of a literally zero probability.
+\end{items}
+\EX{Section 2.2.1}
+\end{frame}
+
+\begin{frame}{Fisher intervals and average effect inference}
+\begin{items}
+\item Invert sharp hypotheses $Y_i(1)-Y_i(0)=\theta$ to form a Fisherian interval under a constant effect model.
+\item A Neyman null instead concerns the average effect: $H_0^N:\theta_{\mathcal W}=0$.
+\item Under complete randomization, the difference in means estimates the window average effect.
+\item Large sample inference for an average effect and Fisherian inference test different hypotheses.
+\end{items}
+\EX{Sections 2.2.1--2.2.2}
+\end{frame}
+
+\begin{frame}{Selecting the window}
+\begin{enumerate}\setlength{\itemsep}{.55em}
+\item Specify a sequence of nested windows and predetermined covariates.
+\item Evaluate covariate balance, beginning with the smallest window.
+\item Enlarge the window while it meets the stated balance criterion.
+\item Fix the rule before inspecting the main outcome results.
+\end{enumerate}
+\vspace{.6em}
+Failing to reject imbalance does not establish randomization. If the smallest window fails, the procedure may select no window.
+\EX{Section 2.2.4}
+\end{frame}
+
+\begin{frame}{Validation under local randomization}
+\begin{items}
+\item Examine predetermined covariates using the same window and assignment mechanism.
+\item Compare counts above and below the cutoff under a justified assignment probability.
+\item Use placebo cutoffs and sensitivity to nearby window choices.
+\item Selecting a window and then reusing balance evidence requires caution about what the tests establish.
+\end{items}
+\EX{Section 2.3}
+\end{frame}
+
+\begin{frame}{When local randomization is useful}
+\begin{items}
+\item It can support finite sample tests when a credible small window contains few units.
+\item With a continuous score, its fixed-window assumptions are typically stronger than continuity alone.
+\item With a coarse discrete score, it offers an alternative to extrapolation between unobserved score values.
+\item Different windows change both the units in the estimand and the plausibility of the assumptions.
+\end{items}
+\EX{Section 2.4}
+\end{frame}
+
+\subsection{The fuzzy RD design}
+\begin{frame}{Assignment and receipt with imperfect compliance}
+\fig[.57]{sharp_fuzzy.pdf}
+\[
+T_i=\ind\{X_i\geq c\},\qquad D_i\text{ is actual treatment received.}
+\]
+The discontinuity in $\Pr(D_i=1\mid X_i=x)$ is nonzero and smaller than one.
+\EX{Section 3, Figure 7}
+\end{frame}
+
+\begin{frame}{Potential treatments and potential outcomes}
+\[
+D_i=T_iD_i(1)+(1-T_i)D_i(0).
+\]
+\begin{items}
+\item $D_i(t)$ describes receipt if assignment were set to $t$.
+\item $Y_i(t,d)$ allows assignment and receipt to affect outcomes separately.
+\item The observed outcome is $Y_i=Y_i(T_i,D_i(T_i))$.
+\item An exclusion restriction $Y_i(t,d)=Y_i(d)$ removes a direct effect of assignment on the outcome.
+\end{items}
+\EX{Section 3}
+\end{frame}
+
+\begin{frame}{Intention-to-treat effects}
+Define the right-minus-left jump operator $\Delta_c$.
+\[
+\tau_Y=\Delta_c\E[Y_i\mid X_i=x],\qquad
+\tau_D=\Delta_c\E[D_i\mid X_i=x].
+\]
+\begin{items}
+\item $\tau_Y$ is the reduced form: the effect of assignment on the outcome under the relevant identification assumptions.
+\item $\tau_D$ is the first stage: the change in treatment receipt induced by crossing the cutoff.
+\item Assignment effects can be policy relevant even when the receipt effect needs further assumptions.
+\end{items}
+\EX{Section 3.2.1}
+\end{frame}
+
+\begin{frame}{Compliance types}
+\begin{center}\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}lcc@{}}\toprule
+Type & $D_i(0)$ & $D_i(1)$\\\midrule
+Never-taker & 0 & 0\\
+Complier & 0 & 1\\
+Always-taker & 1 & 1\\
+Defier & 1 & 0\\\bottomrule
+\end{tabular}\end{center}
+Monotonicity, $D_i(1)\geq D_i(0)$, excludes defiers. Compliance type is latent because only one potential treatment is observed.
+\EX{Section 3.2.2}
+\end{frame}
+
+\begin{frame}{The fuzzy RD local treatment effect}
+Under continuity of the relevant potential quantities, exclusion, a nonzero first stage, and monotonicity,
+\[
+\boxed{\tau_{\mathrm{FRD}}=\frac{\tau_Y}{\tau_D}
+=\E[Y_i(1)-Y_i(0)\mid D_i(1)>D_i(0),X_i=c].}
+\]
+\begin{items}
+\item This is a local average treatment effect for cutoff compliers.
+\item Always-takers and never-takers do not identify the receipt effect.
+\item A treatment effect for all recipients is a different parameter.
+\end{items}
+\EX{Section 3.2.2}
+\end{frame}
+
+\begin{frame}{Estimation of a fuzzy RD effect}
+\[
+\widehat\tau_{\mathrm{FRD}}=\frac{\widehat\tau_Y}{\widehat\tau_D}.
+\]
+\begin{items}
+\item The reduced form and first stage must use compatible samples and local specifications for this ratio calculation.
+\item A joint fuzzy RD procedure selects bandwidths and accounts for covariance between numerator and denominator.
+\item Dividing two separately optimized point estimates need not reproduce a joint fuzzy estimate.
+\item Inference must account for smoothing bias in the ratio.
+\end{items}
+\EX{Sections 3.2.2--3.2.3}
+\end{frame}
+
+\begin{frame}{Fuzzy RD under local randomization}
+\begin{items}
+\item Invoke the local randomization conditions within a credible window.
+\item Use assignment as an instrument for receipt within that window.
+\item Exclusion and monotonicity yield a window complier average effect, under appropriate assignment assumptions.
+\item Large sample TSLS inference and finite sample tests based on assignment require different arguments.
+\end{items}
+\EX{Sections 3.2.1--3.2.3}
+\end{frame}
+
+\begin{frame}{Weak assignment and validation}
+\begin{items}
+\item A small or imprecisely estimated first stage makes the ratio unstable.
+\item Ordinary Wald intervals can fail under weak identification.
+\item Report the first stage and use inference suited to weak assignment when necessary.
+\item Covariate and density diagnostics concern the assignment rule. Exclusion and monotonicity need substantive arguments too.
+\end{items}
+\EX{Sections 3.2.4--3.2.5}
+\end{frame}
+
+\subsection{Discrete running variables}
+\begin{frame}{A score with mass points}
+\begin{items}
+\item Many units can share a score when the running variable takes discrete values.
+\item Count distinct score values overall and inside each estimation window.
+\item Inspect the closest score values on both sides and the treatment rule at exact ties.
+\item More observations at existing values improve precision there, but do not create observations closer to the cutoff.
+\end{items}
+\EX{Sections 4.1--4.2}
+\end{frame}
+
+\begin{frame}{The support gap around the cutoff}
+Let $x_-$ and $x_+$ be the closest observed score values on each side.
+\[
+\E[Y_i\mid X_i=x_+]-\E[Y_i\mid X_i=x_-]
+\]
+is an observed cross-score contrast.
+\begin{items}
+\item If $x_-<c<x_+$ with a fixed gap, continuity alone does not identify the missing limits.
+\item A cutoff effect then requires restrictions on how outcomes behave between support points.
+\item A larger number of units at $x_-$ and $x_+$ does not eliminate this problem.
+\end{items}
+\EX{Section 4.3.1}
+\end{frame}
+
+\begin{frame}{Continuity methods with a discrete score}
+\begin{items}
+\item Local polynomial fits can be informative when there are many distinct values and the relevant smoothness assumptions are plausible.
+\item Inference still depends on how extrapolation between mass points is justified.
+\item Software adjustments for mass points improve practical bandwidth calculations.
+\item Clustering by the score does not itself resolve the identification or approximation problem.
+\end{items}
+\EX{Section 4.3}
+\end{frame}
+
+\begin{frame}{Local randomization with a discrete score}
+\begin{items}
+\item Define a window containing a small, explicit set of score values.
+\item State why assignment across those values can be treated as randomized.
+\item Check predetermined covariates and assignment counts.
+\item The estimand becomes an effect for the units in that window, with assumptions that differ from smooth extrapolation to a missing cutoff.
+\end{items}
+\EX{Section 4.4}
+\end{frame}
+
+\begin{frame}{Ties, selection, and interpretation}
+\begin{items}
+\item Whether equality triggers treatment must agree with the actual rule.
+\item A tiny numerical shift can encode a tie rule, but it cannot supply new information.
+\item Missing outcomes may themselves result from treatment, such as outcomes observed only for people who remain enrolled.
+\item Identification of a score contrast does not automatically identify an effect for a stable population of observed survivors.
+\end{items}
+\EX{Sections 4.1 and 4.4}
+\end{frame}
+
+\subsection{Multidimensional RD designs}
+\begin{frame}{Multiple cutoffs: two assignment structures}
+\fig[.68]{cutoff_types.pdf}
+\src{Noncumulative: each unit faces one group-specific cutoff. Cumulative: the same unit faces several thresholds, often for different treatment levels.}
+\EX{Section 5.1.1, Figure 12}
+\end{frame}
+
+\begin{frame}{Cutoff-specific treatment effects}
+For a noncumulative design, let $C_i$ denote the cutoff faced by unit $i$:
+\[
+T_i=\ind\{X_i\geq C_i\},\qquad
+\tau(c)=\E[Y_i(1)-Y_i(0)\mid X_i=c,C_i=c].
+\]
+\begin{items}
+\item Each cutoff has its own local comparison and identifying assumptions.
+\item Differences between cutoff effects can reflect different populations and different score locations.
+\item Comparisons across cutoffs require attention to uncertainty and dependence.
+\end{items}
+\EX{Section 5.1.2}
+\end{frame}
+
+\begin{frame}{Normalizing and pooling}
+Define $\widetilde X_i=X_i-C_i$. All thresholds now occur at zero.
+\[
+\tau_{\mathrm{pool}}=\sum_{c\in\mathcal C}\omega(c)\tau(c).
+\]
+\begin{items}
+\item Under suitable conditions, the normalized discontinuity averages cutoff effects.
+\item The weights depend on cutoff-group frequencies and score densities at their thresholds.
+\item They generally differ from equal weights and full-sample group shares.
+\item Pooling obscures heterogeneity unless cutoff-specific effects are also shown.
+\end{items}
+\EX{Section 5.1.2}
+\end{frame}
+
+\begin{frame}{Extrapolation across cutoff groups}
+\fig[.57]{cutoff_extrapolation.pdf}
+\src{A constant untreated-outcome gap across score locations can link a lower-cutoff group's treated outcomes to a higher-cutoff group's controls.}
+\EX{Section 5.1.2, Figure 14; \textcite{cktv2021}}
+\end{frame}
+
+\begin{frame}{The assumption behind extrapolation}
+For cutoff groups $c_L<c_H$, define
+\[
+B(x)=\mu_{0,L}(x)-\mu_{0,H}(x).
+\]
+If $B(x)=B(c_L)$ for $x\in(c_L,c_H)$, then
+\[
+\tau_L(x)=\mu_{1,L}(x)-\mu_{0,H}(x)-B(c_L).
+\]
+\begin{items}
+\item The lower-cutoff group is treated and the higher-cutoff group untreated at $x$.
+\item The constant-gap condition supplies the missing counterfactual. It is an additional identification assumption.
+\end{items}
+\EX{Section 5.1.2}
+\end{frame}
+
+\begin{frame}{Multiple scores and a treatment boundary}
+\fig[.51]{multiscore_regions.pdf}
+\[
+X_i=(X_{1i},X_{2i}),\qquad T_i=a(X_i).
+\]
+Treatment changes along a boundary $\mathcal B$, which contains many possible comparison points.
+\EX{Section 5.2, Figure 16}
+\end{frame}
+
+\begin{frame}{Boundary point and pooled effects}
+For a boundary point $b\in\mathcal B$, the target is
+\[
+\tau(b)=\E[Y_i(1)-Y_i(0)\mid X_i=b].
+\]
+\begin{items}
+\item A signed distance to a particular point can implement a point-specific comparison under appropriate conditions.
+\item Distance to the \emph{closest point anywhere on the boundary} pools different locations.
+\item The pooled effect and point-specific effects answer different questions.
+\item Distance units and the metric affect which observations are close.
+\end{items}
+\EX{Section 5.2.1}
+\end{frame}
+
+\begin{frame}{Geographic boundaries}
+\begin{items}
+\item Latitude and longitude jointly determine which side of a boundary a unit occupies.
+\item Geographic proximity can coexist with sharp differences in sorting, services, or institutions.
+\item Sparse settlement near the border increases extrapolation.
+\item Spatial dependence and spillovers can affect inference and interpretation.
+\item The causal claim requires a defensible treatment contrast at the chosen locations.
+\end{items}
+\EX{Section 5.2.3}
+\end{frame}
+
+\begin{frame}{Choosing the estimand and framework}
+\small\renewcommand{\arraystretch}{1.45}
+\begin{tabular}{@{}p{.26\linewidth}p{.64\linewidth}@{}}\toprule
+Setting & Central question before estimation\\\midrule
+Continuity, sharp RD & What effect do the outcome limits identify at $c$?\\
+Local randomization & Which window and assignment mechanism are credible?\\
+Fuzzy RD & What receipt effect is identified for which compliers?\\
+Discrete score & What justifies the missing counterfactual across the support gap?\\
+Multiple dimensions & Which cutoff group or boundary location defines the target?\\\bottomrule
+\end{tabular}
+\EX{Sections 2--6}
+\end{frame}

@@ -1,0 +1,63 @@
+\pdfminorversion=7
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{lmodern,microtype,csquotes,amsmath,amssymb,booktabs,array,listings}
+\usetheme{Madrid}
+\usefonttheme{serif}
+\definecolor{seminarblue}{RGB}{28,62,91}
+\usecolortheme[named=seminarblue]{structure}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamertemplate{footline}{\hbox to \paperwidth{\hspace*{1.8ex}\scriptsize\insertsectionhead\hfill\insertframenumber\hspace*{1.8ex}}\vskip4pt}
+\setbeamerfont{frametitle}{size=\large}
+\setbeamersize{text margin left=8mm,text margin right=8mm}
+\setlength{\emergencystretch}{1em}
+\graphicspath{{assets/}{../exercises/results/}}
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true,columns=fullflexible,
+ keepspaces=true,showstringspaces=false,aboveskip=.6em,belowskip=.6em}
+\usepackage[backend=biber,style=authoryear,maxcitenames=2,mincitenames=1,
+ maxbibnames=99,giveninits=true,uniquename=false,uniquelist=false,
+ doi=false,url=false,isbn=false,eprint=false]{biblatex}
+\addbibresource{references.bib}
+\setbeamertemplate{bibliography item}{}
+\renewcommand*{\bibfont}{\scriptsize}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\V}{\operatorname{Var}}
+\newcommand{\ind}{\mathbf{1}}
+\newcommand{\F}[1]{\par\vfill{\scriptsize\color{black!55}Foundations, #1. \parencite{cit2020}}}
+\newcommand{\EX}[1]{\par\vfill{\scriptsize\color{black!55}Extensions, #1. \parencite{cit2024}}}
+\newcommand{\src}[1]{\par\vspace{.3em}{\scriptsize\color{black!55}#1}}
+\newcommand{\fig}[2][.72]{\centering\includegraphics[width=.96\linewidth,height=#1\textheight,keepaspectratio]{#2}\par}
+\newenvironment{items}{\begin{itemize}\setlength{\itemsep}{.65em}}{\end{itemize}}
+\title{Regression Discontinuity Designs}
+\subtitle{Foundations and Extensions}
+\author{Luis P.\ de la Horra}
+\institute{Universidad de Valladolid}
+\date{RDD seminar}
+\begin{document}
+\begin{frame}[plain]
+\titlepage
+\centering\footnotesize Based on the two manuals by\\Cattaneo, Idrobo, and Titiunik (2020, 2024)
+\end{frame}
+\begin{frame}{Seminar structure}
+\begin{enumerate}\setlength{\itemsep}{.8em}
+\item \textbf{Foundations: theory}\\Sharp RD, plots, continuity methods, validation
+\item \textbf{Foundations: application}\\Turkish municipalities and women's education
+\item \textbf{Extensions: theory}\\Local randomization, fuzzy RD, discrete scores, multiple dimensions
+\item \textbf{Extensions: applications}\\Senate elections, financial aid, probation, geographic boundaries
+\end{enumerate}
+\src{The theoretical topics follow the manuals' order. Each empirical block follows its part's theory.}
+\end{frame}
+\input{foundations_theory}
+\input{foundations_application}
+\input{extensions_theory}
+\input{extensions_applications}
+\section{References}
+\begin{frame}[allowframebreaks]{References}
+\printbibliography[heading=none]
+\end{frame}
+\end{document}

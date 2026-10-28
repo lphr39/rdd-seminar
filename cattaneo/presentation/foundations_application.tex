@@ -1,0 +1,102 @@
+\section{Foundations: application}
+\begin{frame}[plain]{Foundations: empirical application}
+\Large Islamic political representation and women's education\par
+\vspace{1em}\normalsize
+The sharp RD illustration from Foundations, after the theoretical discussion.\\[1em]
+\textbf{Stata module 1} and worksheet A.
+\src{Original study: \textcite{meyersson2014}. Official companion code: CIT\_2020\_CUP\_polecon.do.}
+\end{frame}
+
+\begin{frame}{The Turkish municipal election design}
+\begin{items}
+\item \textbf{Units:} 2,629 municipalities in the authors' teaching dataset.
+\item \textbf{Score:} Islamic party margin of victory in the 1994 mayoral election, measured in percentage points.
+\item \textbf{Treatment:} an Islamic party wins the mayoralty, $T_i=\ind\{X_i\geq0\}$.
+\item \textbf{Outcome:} percentage of women aged 15--20 who completed high school, measured in 2000.
+\item \textbf{Target:} effect of an Islamic mayor for municipalities at a tied election.
+\end{items}
+\src{\textcite{meyersson2014}; Foundations, Section 2.1.}
+\end{frame}
+
+\begin{frame}{The raw outcome-score relationship}
+\fig[.73]{turkey_raw.pdf}
+\src{Stata module 1, authors' dataset. A comparison of all winners and losers mixes the cutoff effect with the outcome-score relationship.}
+\end{frame}
+
+\begin{frame}{Evenly spaced bins in the application}
+\fig[.73]{turkey_bins_es.pdf}
+\src{Twenty bins on each side, separate linear descriptive fits. Stata module 1; Foundations, Section 3.}
+\end{frame}
+
+\begin{frame}{Quantile spaced bins in the application}
+\fig[.73]{turkey_bins_qs.pdf}
+\src{Twenty bins on each side, separate linear descriptive fits. Different bin widths reflect the uneven score density.}
+\end{frame}
+
+\begin{frame}[fragile]{Local estimation in Stata}
+\begin{lstlisting}
+* An interaction allows different slopes on the two sides.
+generate double TX = T*X
+regress Y T X TX if abs(X)<=20, vce(robust)
+
+* Data driven local estimation and robust inference.
+rdrobust Y X, p(1) kernel(triangular) bwselect(mserd) all
+rdrobust Y X, p(1) kernel(triangular) bwselect(cerrd) all
+\end{lstlisting}
+\begin{items}
+\item $Y$ is already a percentage. A coefficient of 3 means 3 percentage points.
+\item The robust RD interval accounts for estimated smoothing bias.
+\end{items}
+\F{Sections 4.2--4.3; module 1}
+\end{frame}
+
+\begin{frame}{The local fit around a tied election}
+\fig[.73]{turkey_local.pdf}
+\src{Module 1. Local linear, triangular weights, MSE selected bandwidth. The plot uses the estimation sample and bandwidth.}
+\end{frame}
+
+\begin{frame}{Point estimates and robust intervals}
+\input{assets/turkey_main.tex}
+\begin{items}
+\item Units: percentage points of female high-school completion.
+\item The MSE point estimate is about $+3.02$ pp. Its robust interval includes zero.
+\item The data remain compatible with both a small negative effect and a substantively positive effect.
+\end{items}
+\src{Saved Stata output, module 1. Current package results, rather than copied book values.}
+\end{frame}
+
+\begin{frame}{Predetermined covariates}
+\input{assets/turkey_balance.tex}
+\begin{items}
+\item Each row retains the covariate's own units.
+\item These checks use pre-treatment population, party count, and the previous mayor.
+\item Variables measured in 2000 can respond to the 1994 treatment. Their timing requires separate justification.
+\end{items}
+\src{Module 1, coverage error selected bandwidths. A robust interval containing zero does not demonstrate exact balance.}
+\end{frame}
+
+\begin{frame}{Density evidence at the election threshold}
+\fig[.73]{turkey_density.pdf}
+\src{Module 1, rddensity. Interpret the formal test together with election rules and opportunities for precise sorting.}
+\end{frame}
+
+\begin{frame}{Bandwidth and exclusion sensitivity}
+\input{assets/turkey_sensitivity.tex}
+\begin{items}
+\item The first three rows vary both $h$ and $b$ proportionally.
+\item The donut drops $|X|\leq0.5$ and selects new bandwidths.
+\item A significant donut estimate does not override uncertainty in the full analysis.
+\end{items}
+\src{Module 1. Outcome units are percentage points. Local quadratic uses its own selected bandwidth.}
+\end{frame}
+
+\begin{frame}{Sharp RD exercise and discussion}
+\begin{enumerate}\setlength{\itemsep}{.6em}
+\item Explain why the full-sample mean difference is not the cutoff estimand.
+\item Compare the two binning rules with the local fit.
+\item Identify the point estimate and the center of the robust interval.
+\item Evaluate the timing of each proposed balance covariate.
+\item Write a conclusion that reports magnitude, uncertainty, and policy scope.
+\end{enumerate}
+\src{Worksheet A, module 1. Allow 35--45 minutes for running and interpreting the analysis.}
+\end{frame}

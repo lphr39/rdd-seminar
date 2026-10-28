@@ -4,7 +4,7 @@ import csv
 import json
 
 ROOT = Path(__file__).resolve().parent
-RESULTS = ROOT / 'practical/hansen_results'
+RESULTS = ROOT.parent / 'exercises/hansen_results'
 
 def read_table(name):
     with (RESULTS / (name + '.csv')).open(newline='', encoding='utf-8') as f:
