@@ -1,6 +1,6 @@
 * Extensions, Section 4: Lindo, Sanders and Oreopoulos (2010).
 * X is oriented so positive values receive probation. Check exact ties.
-use "$CROOT/cache/CIT_2024_CUP_discrete.dta", clear
+use "$CROOT/data/CIT_2024_CUP_discrete.dta", clear
 summarize X T nextGPA
 codebook X
 tabulate X T if abs(X)<=0.021, missing

@@ -4,10 +4,16 @@ The second presentation follows the conceptual progression of *Foundations*
 (2020) and *Extensions* (2024). Theory comes first in each part; its empirical
 examples follow at the end.
 
-- [Presentation PDF](presentation/rdd_cattaneo.pdf)
-- [Editable main source](presentation/rdd_cattaneo.tex)
+- [Presentation PDF](presentation/slides.pdf)
+- [Editable main source](presentation/slides.tex)
+- [Presentation and build instructions](presentation/README.md)
+- [Stata entry point](exercises/run_all.do)
 - [Exercise setup and runnable code](exercises/README.md)
+- [Dataset sources and downloads](exercises/data/README.md)
 - [Student worksheets](exercises/WORKSHEET.md)
+- [Saved exercise figures and tables](exercises/results/)
+- [Bibliography](presentation/references.bib)
+- [Sources and attribution](../SOURCES.md)
 - [Pinned source and package revisions](exercises/sources.lock.json)
 
 ## Sequence and source mapping
@@ -42,9 +48,18 @@ For a deeper course, split the third session into two, giving local randomizatio
 and fuzzy RD more time. Worksheet A fits a first lab; B-C suit a second lab;
 D-F can form optional labs or take-home work.
 
+## Use and rebuild
+
+Verify the included data and prepare isolated packages with `python fetch_sources.py` from
+`exercises/`. In Stata 18, with that directory as the working directory, run
+`do "run_all.do"`, or select one module with `do "run_all.do" "1"` through `"6"`.
+Build the slides with `python build.py` from `presentation/`, or `build.cmd` on
+Windows. The same entry-point names are used in the Mixtape track.
+
 The examples explicitly discuss uncertainty, different estimands, a failed SPP
 window-selection protocol, the probation tie rule and outcome selection, pooling,
 and geographic support and dependence. Detailed study notes and an instructor
-key remain local under `notes/`, which is explicitly gitignored. Reading PDFs,
-downloaded data and authors' code, package files, execution logs, and QA files
-also stay outside the public repository.
+key remain local under `notes/`, which is explicitly gitignored. The original
+teaching datasets are included under `exercises/data/`, with source links and
+checksums. Reading PDFs, downloaded comparison code, package files, logs, and
+QA files stay outside the public repository.

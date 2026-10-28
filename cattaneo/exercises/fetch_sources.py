@@ -1,7 +1,7 @@
-"""Fetch pinned authors' examples and Stata packages; standard library only.
+"""Fetch or verify the pinned third-party files in sources.lock.json.
 
-Run once before the seminar. Existing files must pass their SHA-256 checksum.
-The cache is private and excluded from Git. No installed Stata packages change.
+Existing files must pass SHA-256 verification. The manifest chooses the data
+and cache locations. No global Stata installation changes. Standard library only.
 """
 from pathlib import Path
 import argparse

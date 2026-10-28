@@ -6,7 +6,7 @@ The original track follows Scott Cunningham's [Causal Inference: The Remix](http
 
 The continuity schematic is a crop of page 3 of the supplied `rdd-smoothness-and-hoekstra.pdf`. Its hypothetical university example is not an empirical estimate from Hoekstra (2009). The complete handout stays local.
 
-The Hansen exercise adapts Cunningham's chapter example and public [214,558-observation teaching extract](https://raw.githubusercontent.com/scunning1975/causal-inference-class/master/hansen_dwi.dta). The original study is Hansen (2015), [Punishment and Deterrence: Evidence from Drunk Driving](https://doi.org/10.1257/aer.20130189). The exercise does not replicate the paper's full original sample. Saved outputs are in `mixtape/exercises/hansen_results/`.
+The Hansen exercise adapts Cunningham's chapter example and public [214,558-observation teaching extract](https://raw.githubusercontent.com/scunning1975/causal-inference-class/master/hansen_dwi.dta). The original study is Hansen (2015), [Punishment and Deterrence: Evidence from Drunk Driving](https://doi.org/10.1257/aer.20130189). The exercise does not replicate the paper's full original sample. Saved outputs are in `mixtape/exercises/results/`.
 
 ## Cattaneo, Idrobo, and Titiunik track
 
@@ -23,7 +23,23 @@ The authors' code was located through their [official replication index](https:/
 - [Foundations replication](https://github.com/rdpackages-replication/CIT_2020_CUP/tree/62bb142c65a9b1fb3b593d405a97ce1bec17aa50), revision `62bb142c65a9b1fb3b593d405a97ce1bec17aa50`.
 - [Extensions replication](https://github.com/rdpackages-replication/CIT_2024_CUP/tree/192a67d70ec095182fc1f08fccb90a7c20167f83), revision `192a67d70ec095182fc1f08fccb90a7c20167f83`.
 
-The seminar's Stata modules are teaching adaptations with new organization, exports, and explanatory comments. `fetch_sources.py` downloads the original authors' do-files and data unmodified into a local ignored cache. It also downloads isolated pinned versions of `rdrobust`, `rddensity`, `rdlocrand`, `rdmulti`, and `lpdensity`. All URLs and SHA-256 checksums are recorded in [sources.lock.json](cattaneo/exercises/sources.lock.json).
+The seminar's Stata modules are teaching adaptations with new organization, exports, and explanatory comments. The authors' original datasets are included under `exercises/data/`. `fetch_sources.py` verifies these copies, restores missing data, and downloads original do-files and isolated pinned versions of `rdrobust`, `rddensity`, `rdlocrand`, `rdmulti`, and `lpdensity` into the local `cache/`. All URLs and SHA-256 checksums are recorded in [sources.lock.json](cattaneo/exercises/sources.lock.json).
+
+## Dataset availability and source terms
+
+The Hansen teaching extract is included under `mixtape/exercises/data/`. Its
+[teaching-source repository](https://github.com/scunning1975/causal-inference-class)
+publishes an MIT licence, reproduced without modification beside the dataset.
+The source revision and checksum are in
+[the Mixtape manifest](mixtape/exercises/sources.lock.json). This notice does not
+relicense Hansen's paper or unrelated third-party figures.
+
+The official Cattaneo companion repositories publish their datasets for
+replication but specify no explicit redistribution licence. The seven teaching
+files are included unchanged alongside their direct source links, attributions,
+and checksums. Their original authors retain their rights, and this repository
+does not assign a new licence to that third-party material. See
+[the data guide](cattaneo/exercises/data/README.md).
 
 ## Original empirical studies in the second track
 

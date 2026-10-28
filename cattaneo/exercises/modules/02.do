@@ -1,5 +1,5 @@
 * Extensions, Section 2: Senate elections, Cattaneo et al. (2015).
-use "$CROOT/cache/CIT_2024_CUP_locrand.dta", clear
+use "$CROOT/data/CIT_2024_CUP_locrand.dta", clear
 assert T == (X>=0) if !missing(X,T)
 summarize X Y T
 rdplot Y X, p(1) graph_options(xtitle("Democratic margin at election t (pp)") ///

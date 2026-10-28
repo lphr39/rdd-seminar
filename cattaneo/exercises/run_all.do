@@ -59,9 +59,19 @@ forvalues m=1/6 {
 }
 preserve
 clear
-forvalues m=1/6 {
-    capture confirm file "$COUT/rd_results_0`m'.dta"
-    if !_rc append using "$COUT/rd_results_0`m'.dta"
+* Recombine the published CSVs, not private DTA files that a fresh clone lacks.
+* Prepending modules in reverse order retains the teaching order 01 through 06.
+tempfile combined_results
+local have_results=0
+forvalues m=6(-1)1 {
+    capture confirm file "$COUT/rd_results_0`m'.csv"
+    if !_rc {
+        import delimited using "$COUT/rd_results_0`m'.csv", clear ///
+            varnames(1) stringcols(1) asdouble
+        if `have_results' append using `"`combined_results'"'
+        save `"`combined_results'"', replace
+        local have_results=1
+    }
 }
 export delimited using "$COUT/rd_results.csv", replace
 restore

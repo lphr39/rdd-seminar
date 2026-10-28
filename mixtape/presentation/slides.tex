@@ -19,7 +19,7 @@
 \setbeamertemplate{footline}{%
  \hfill\usebeamerfont{page number in head/foot}\usebeamercolor[fg]{structure}%
  \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}\vskip3pt}
-\graphicspath{{assets/}{../exercises/hansen_results/}}
+\graphicspath{{assets/}{../exercises/results/}}
 \lstdefinestyle{stata}{basicstyle=\ttfamily\footnotesize,breaklines=true,
  columns=fullflexible,keepspaces=true,showstringspaces=false,
  aboveskip=0.5em,belowskip=0.5em,commentstyle=\color{black!55}}
@@ -480,13 +480,13 @@ rdrobust earnings score, c(0) fuzzy(attend) p(1)
 \end{frame}
 
 \begin{frame}[fragile]{Load the data and center BAC}
- Run directly in Stata 18. If necessary, select this do-file in the folder-location dialog:
+ In Stata 18, set the track's \texttt{exercises} directory as the working directory:
  \begin{lstlisting}
-do "hansen_seminar.do"
+do "run_all.do"
  \end{lstlisting}
- The script downloads once and then uses the cached data:
+ The script uses the supplied dataset in \texttt{data/}:
  \begin{lstlisting}
-use "`output_dir'/hansen_dwi.dta", clear
+use "`data_dir'/hansen_dwi.dta", clear
 rename bac1 bac1_orig
 generate double bac1 = bac1_orig - 0.08
 generate byte dui = (bac1_orig >= 0.08) if !missing(bac1_orig)

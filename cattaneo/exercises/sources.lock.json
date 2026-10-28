@@ -13,7 +13,7 @@
   },
   "files": [
     {
-      "path": "cache/CIT_2020_CUP_polecon.dta",
+      "path": "data/CIT_2020_CUP_polecon.dta",
       "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2020_CUP/62bb142c65a9b1fb3b593d405a97ce1bec17aa50/CIT_2020_CUP_polecon.dta",
       "sha256": "68bfc8729a82dfe61bef69e19d7c468db91e98347c393ebd451ddc1f7ca743d5"
     },
@@ -23,7 +23,7 @@
       "sha256": "006adb0581872c92afadc96fcebd000d486df950d69623e7b798bda1a010d290"
     },
     {
-      "path": "cache/CIT_2024_CUP_locrand.dta",
+      "path": "data/CIT_2024_CUP_locrand.dta",
       "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_locrand.dta",
       "sha256": "7982fe5fb2671f7e1cc0fa92fd0810983f8cb1c51e1286fd6f009f34a14b92d8"
     },
@@ -33,7 +33,7 @@
       "sha256": "5b29c402b7f3ab5097243bfb4e499cdd877677556700d4157a73b6f3f8ee8fb3"
     },
     {
-      "path": "cache/CIT_2024_CUP_fuzzy.dta",
+      "path": "data/CIT_2024_CUP_fuzzy.dta",
       "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_fuzzy.dta",
       "sha256": "705d61f5b367e83494dd7309b4a623d611e85249cf0ea300d3ffbe8c20d3b45b"
     },
@@ -43,7 +43,7 @@
       "sha256": "30d053df9b1abb6361c1678898252d60bf086cae79b422fbc90b9d1ab5414bc4"
     },
     {
-      "path": "cache/CIT_2024_CUP_discrete.dta",
+      "path": "data/CIT_2024_CUP_discrete.dta",
       "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_discrete.dta",
       "sha256": "75430b112d230b47cd15326510680f6e3b117f6a1ad0db1ff118b9092c7d8a4c"
     },
@@ -53,7 +53,7 @@
       "sha256": "6e52974f5a0e793969ed6b95bca01f7b7b194cf219a54cd002432de4510abeb4"
     },
     {
-      "path": "cache/CIT_2024_CUP_multicutoff.dta",
+      "path": "data/CIT_2024_CUP_multicutoff.dta",
       "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_multicutoff.dta",
       "sha256": "e3433dbe04ebd92dd93e71a5f54c3eae26798b44ff7361e8e808d09779e34d89"
     },
@@ -63,7 +63,7 @@
       "sha256": "90a14ea9f1b8ab8a7757b89418e43e54e3e9fb430234878e4175a0ee1dd1ed79"
     },
     {
-      "path": "cache/CIT_2024_CUP_multiscore-nongeo.dta",
+      "path": "data/CIT_2024_CUP_multiscore-nongeo.dta",
       "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_multiscore-nongeo.dta",
       "sha256": "f55325123be69e191ba9abc5e3131b1c450cc792a084d10e4e9c2d4cd5d07d14"
     },
@@ -73,7 +73,7 @@
       "sha256": "da126306478074c1271b3ffb772803f8c07f3548f7098657243d7fc9f6245be6"
     },
     {
-      "path": "cache/CIT_2024_CUP_multiscore-geo.dta",
+      "path": "data/CIT_2024_CUP_multiscore-geo.dta",
       "url": "https://raw.githubusercontent.com/rdpackages-replication/CIT_2024_CUP/192a67d70ec095182fc1f08fccb90a7c20167f83/CIT_2024_CUP_multiscore-geo.dta",
       "sha256": "2d1c394b7513a567a6022daf89135ae220878a10527b989a93402cb80561ab86"
     },

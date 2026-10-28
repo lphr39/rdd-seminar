@@ -4,7 +4,7 @@ import csv
 import json
 
 ROOT = Path(__file__).resolve().parent
-RESULTS = ROOT.parent / 'exercises/hansen_results'
+RESULTS = ROOT.parent / 'exercises/results'
 
 def read_table(name):
     with (RESULTS / (name + '.csv')).open(newline='', encoding='utf-8') as f:
@@ -20,6 +20,7 @@ def table(headers, rows):
     return '\n'.join(out) + '\n'
 
 def main():
+    (ROOT / 'build').mkdir(exist_ok=True)
     balance = read_table('table_6_6')
     keys = ['White', 'Male', 'Age', 'Accident']
     rows = [(label, [f'{balance[key][k]:.4f}' for k in keys]) for label, key in

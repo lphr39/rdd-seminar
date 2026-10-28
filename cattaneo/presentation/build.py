@@ -16,7 +16,8 @@ def compile_tex(directory, stem):
          '-output-directory=build', stem+'.tex'],
         ['biber', '--input-directory=build', '--output-directory=build', stem],
     ]
-    for n, command in enumerate([commands[0], commands[1], commands[0], commands[0]], 1):
+    # A final TeX pass settles Beamer/biblatex page references on a clean build.
+    for n, command in enumerate([commands[0], commands[1], commands[0], commands[0], commands[0]], 1):
         result = subprocess.run(command, cwd=directory, stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT, text=True, errors='replace')
         (build / f'pass-{n}.txt').write_text(result.stdout, encoding='utf-8')
@@ -31,13 +32,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--notes', action='store_true', help='also compile private local notes')
     args = parser.parse_args()
+    (ROOT/'build').mkdir(exist_ok=True)
     subprocess.run([sys.executable, str(ROOT/'build_tables.py')], check=True, cwd=ROOT)
-    compile_tex(ROOT, 'rdd_cattaneo')
+    compile_tex(ROOT, 'slides')
     if args.notes:
         notes = ROOT.parent/'notes'
-        if not (notes/'rdd_cattaneo_notes.tex').is_file():
+        if not (notes/'study_notes.tex').is_file():
             raise FileNotFoundError('Private notes are local and are not included in the public repository.')
-        compile_tex(notes, 'rdd_cattaneo_notes')
+        compile_tex(notes, 'study_notes')
 
 
 if __name__ == '__main__':

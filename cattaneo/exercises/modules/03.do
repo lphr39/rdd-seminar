@@ -1,7 +1,7 @@
 * Extensions, Section 3: Ser Pilo Paga, Londono-Velez et al. (2020).
 * The sample already satisfies the programme's academic eligibility rule.
 * X1 increases towards poverty eligibility. D is receipt; Y is enrolment.
-use "$CROOT/cache/CIT_2024_CUP_fuzzy.dta", clear
+use "$CROOT/data/CIT_2024_CUP_fuzzy.dta", clear
 assert T == (X1>=0) if !missing(X1,T)
 summarize X1 T D Y
 foreach v in D Y {

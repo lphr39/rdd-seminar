@@ -1,5 +1,5 @@
 * Extensions, Section 5.1: SPP eligibility at three area-specific cutoffs.
-use "$CROOT/cache/CIT_2024_CUP_multicutoff.dta", clear
+use "$CROOT/data/CIT_2024_CUP_multicutoff.dta", clear
 tabulate sisben_area cutoff
 rdmc spadies_any sisben_score, c(cutoff)
 ereturn list

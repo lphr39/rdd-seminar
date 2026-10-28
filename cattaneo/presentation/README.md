@@ -1,6 +1,6 @@
 # Foundations and Extensions presentation
 
-[rdd_cattaneo.pdf](rdd_cattaneo.pdf) is ready to teach. The editable main source
+[slides.pdf](slides.pdf) is ready to teach. The editable main source
 includes four files in teaching order:
 
 1. `foundations_theory.tex`
@@ -28,7 +28,7 @@ and CSV inputs are included. Build output goes to ignored `build/`.
 If results change, rerun the relevant Stata module before rebuilding. Table
 fragments are generated; edit the analysis rather than hand-editing the numbers.
 
-`prepare_author_figures.py` refreshes theoretical diagrams from the supplied PDFs
+`prepare_assets.py` refreshes theoretical diagrams from the supplied PDFs
 in the repository's local `resources/` folder. It requires PyMuPDF and is optional
 for compilation. Exact figure provenance is in `assets/sources.json`. Empirical
 figures come from Stata and live in `../exercises/results/`.

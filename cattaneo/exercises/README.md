@@ -1,6 +1,6 @@
 # Cattaneo, Idrobo, and Titiunik: practical exercises
 
-These Stata 18 exercises accompany [the second presentation](../presentation/rdd_cattaneo.pdf).
+These Stata 18 exercises accompany [the second presentation](../presentation/slides.pdf).
 The presentation completes the Foundations theory before application A, then
 completes all Extensions theory before applications B-F.
 
@@ -12,8 +12,10 @@ Install Stata 18 and Python 3. Run this once from this folder:
 python fetch_sources.py
 ```
 
-This downloads the authors' original data and do-files, plus isolated Stata
-packages, into `cache/`. Every download uses a pinned Git revision and a SHA-256
+The datasets are already included in [data/](data/README.md). This command verifies
+them and prepares the authors' original do-files and isolated Stata packages in
+`cache/`. Missing data are restored from the authors' sources. Every input uses
+a pinned Git revision and a SHA-256
 checksum in [sources.lock.json](sources.lock.json). The standard-library Python
 script changes no global Stata installation. Verify the cache offline with:
 
@@ -34,7 +36,7 @@ do "run_all.do" "1"
 ```
 
 From another working directory, give the do-file's full path and this directory
-as the second argument:
+as the second optional argument, after the module selector:
 
 ```stata
 do "/path/to/rdd-seminar/cattaneo/exercises/run_all.do" "all" "/path/to/rdd-seminar/cattaneo/exercises"
@@ -66,12 +68,15 @@ not full replications of every table in the original empirical papers.
 - `results/rd_results.csv` combines the saved module result files. Columns distinguish
   conventional estimates, bias-corrected estimates, robust standard errors and
   intervals, bandwidths, and effective sample sizes. Each module also has its own
-  `rd_results_0N.csv`; running one module retains saved results from the others.
+  `rd_results_0N.csv`; the combined table is assembled from these published CSVs,
+  so running one module retains the others' results even in a fresh Git clone
+  with no intermediate DTA files.
 - PNG, PDF, and editable Stata GPH graphs are saved in `results/`. Re-running
   replaces outputs for the selected modules. A complete run also replaces the
   combined CSV and `execution.log`.
-- The public repository includes figures and CSV output. Downloaded datasets,
-  package files, execution logs, and intermediate DTA results remain local.
+- The repository includes the input datasets, figures, and CSV output. Downloaded
+  comparison code, package files, logs, and intermediate DTA results stay local.
+  See [data/README.md](data/README.md) for original source links and notices.
 - `rdrobust` point estimates and RBC intervals have different centers. Do not
   silently combine the conventional estimate with an uncorrected interval.
 - SPP estimates in proportions are multiplied by 100 in the exported RD table.

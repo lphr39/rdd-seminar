@@ -1,7 +1,7 @@
 * Foundations, Sections 2-5: Meyersson (2014), Turkish municipalities.
 * Authors' original: cache/CIT_2020_CUP_polecon.do
 * Y is female high-school completion in percentage points, not a proportion.
-use "$CROOT/cache/CIT_2020_CUP_polecon.dta", clear
+use "$CROOT/data/CIT_2020_CUP_polecon.dta", clear
 assert T == (X>=0) if !missing(X,T)
 summarize Y X T
 ttest Y, by(T)

@@ -6,8 +6,10 @@
 *.do text eol=lf
 *.csv text eol=lf
 *.json text eol=lf
+*.txt text eol=lf
 *.cmd text eol=crlf
 *.pdf binary
 *.png binary
 *.jpg binary
 *.gph binary
+*.dta binary

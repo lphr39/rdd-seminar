@@ -1,5 +1,5 @@
 * Extensions, Section 5.2: multiple scores, then geographic boundaries.
-use "$CROOT/cache/CIT_2024_CUP_multiscore-nongeo.dta", clear
+use "$CROOT/data/CIT_2024_CUP_multiscore-nongeo.dta", clear
 assert tr==(running_sisben>=0 & running_saber11>=0) ///
     if !missing(running_sisben,running_saber11,tr)
 preserve
@@ -22,7 +22,7 @@ foreach pair in "0 0" "30 0" "0 50" {
 }
 
 * Keele and Titiunik (2015), New Jersey media-market boundary.
-use "$CROOT/cache/CIT_2024_CUP_multiscore-geo.dta", clear
+use "$CROOT/data/CIT_2024_CUP_multiscore-geo.dta", clear
 twoway (scatter longitude latitude if treated==0, msize(tiny) mcolor(navy%30)) ///
     (scatter longitude latitude if treated==1, msize(tiny) mcolor(maroon%30)) ///
     (line long_border lat_border, lcolor(black)), ///

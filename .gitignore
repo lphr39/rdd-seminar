@@ -1,4 +1,4 @@
-# Public teaching materials only. Reading PDFs, notes, caches and QA stay local.
+# Public teaching materials. Notes, caches, archives and review files stay local.
 /*
 !/.gitignore
 !/.gitattributes
@@ -8,73 +8,56 @@
 !/cattaneo/
 
 /mixtape/*
+!/mixtape/README.md
 !/mixtape/presentation/
 !/mixtape/exercises/
 
 /mixtape/presentation/*
 !/mixtape/presentation/README.md
-!/mixtape/presentation/rdd_seminar.pdf
-!/mixtape/presentation/rdd_seminar.tex
+!/mixtape/presentation/slides.pdf
+!/mixtape/presentation/slides.tex
 !/mixtape/presentation/references.bib
+!/mixtape/presentation/build.py
 !/mixtape/presentation/build.cmd
 !/mixtape/presentation/build_tables.py
+!/mixtape/presentation/prepare_assets.py
 !/mixtape/presentation/latexmkrc
 !/mixtape/presentation/assets/
 
 /mixtape/presentation/assets/*
-!/mixtape/presentation/assets/
-!/mixtape/presentation/assets/alcohol_drinking.png
-!/mixtape/presentation/assets/alcohol_mortality.png
-!/mixtape/presentation/assets/sharp_fuzzy.pdf
-!/mixtape/presentation/assets/sharp_fuzzy.svg
-!/mixtape/presentation/assets/potential_homogeneous.pdf
-!/mixtape/presentation/assets/potential_homogeneous.svg
-!/mixtape/presentation/assets/potential_heterogeneous.pdf
-!/mixtape/presentation/assets/potential_heterogeneous.svg
-!/mixtape/presentation/assets/smoothness.png
-!/mixtape/presentation/assets/observed_jump.png
-!/mixtape/presentation/assets/smoothness_observed_counterfactual.pdf
-!/mixtape/presentation/assets/misspecification.png
-!/mixtape/presentation/assets/boundary_bias.pdf
-!/mixtape/presentation/assets/boundary_bias.svg
-!/mixtape/presentation/assets/density.jpg
-!/mixtape/presentation/assets/election_balance.jpg
-!/mixtape/presentation/assets/birthweight_heaping.jpg
-!/mixtape/presentation/assets/medicare_employment.jpg
-!/mixtape/presentation/assets/medicare_hospital.jpg
-!/mixtape/presentation/assets/hoekstra_firststage.jpg
-!/mixtape/presentation/assets/table_6_6.tex
-!/mixtape/presentation/assets/table_6_7.tex
-!/mixtape/presentation/assets/table_6_8.tex
-!/mixtape/presentation/assets/local_linear_summary.tex
-!/mixtape/presentation/assets/sources.json
+!/mixtape/presentation/assets/*.pdf
+!/mixtape/presentation/assets/*.svg
+!/mixtape/presentation/assets/*.png
+!/mixtape/presentation/assets/*.jpg
+!/mixtape/presentation/assets/*.tex
+!/mixtape/presentation/assets/*.json
 
 /mixtape/exercises/*
 !/mixtape/exercises/README.md
-!/mixtape/exercises/hansen_seminar.do
-!/mixtape/exercises/hansen_results/
+!/mixtape/exercises/WORKSHEET.md
+!/mixtape/exercises/run_all.do
+!/mixtape/exercises/fetch_sources.py
+!/mixtape/exercises/sources.lock.json
+!/mixtape/exercises/data/
+!/mixtape/exercises/modules/
+!/mixtape/exercises/results/
 
-/mixtape/exercises/hansen_results/*
-!/mixtape/exercises/hansen_results/
-!/mixtape/exercises/hansen_results/density_diagnostic.png
-!/mixtape/exercises/hansen_results/density_diagnostic.gph
-!/mixtape/exercises/hansen_results/figure_6_16.png
-!/mixtape/exercises/hansen_results/figure_6_16.gph
-!/mixtape/exercises/hansen_results/figure_6_17.png
-!/mixtape/exercises/hansen_results/figure_6_17.gph
-!/mixtape/exercises/hansen_results/figure_6_18.png
-!/mixtape/exercises/hansen_results/figure_6_18.gph
-!/mixtape/exercises/hansen_results/table6_8_plot_p0.png
-!/mixtape/exercises/hansen_results/table6_8_plot_p0.gph
-!/mixtape/exercises/hansen_results/table6_8_plot_p1.png
-!/mixtape/exercises/hansen_results/table6_8_plot_p1.gph
-!/mixtape/exercises/hansen_results/table6_8_plot_p2.png
-!/mixtape/exercises/hansen_results/table6_8_plot_p2.gph
-!/mixtape/exercises/hansen_results/table6_8_plots.png
-!/mixtape/exercises/hansen_results/table6_8_plots.gph
-!/mixtape/exercises/hansen_results/table_6_6.csv
-!/mixtape/exercises/hansen_results/table_6_7.csv
-!/mixtape/exercises/hansen_results/table_6_8.csv
+/mixtape/exercises/data/*
+!/mixtape/exercises/data/README.md
+!/mixtape/exercises/data/hansen_dwi.dta
+!/mixtape/exercises/data/LICENSE.txt
+
+/mixtape/exercises/modules/*
+!/mixtape/exercises/modules/*.do
+
+/mixtape/exercises/results/*
+!/mixtape/exercises/results/*.csv
+!/mixtape/exercises/results/*.png
+!/mixtape/exercises/results/*.pdf
+!/mixtape/exercises/results/*.gph
+
+/mixtape/notes/
+/mixtape/exercises/cache/
 
 /cattaneo/*
 !/cattaneo/README.md
@@ -83,21 +66,25 @@
 
 /cattaneo/presentation/*
 !/cattaneo/presentation/README.md
-!/cattaneo/presentation/rdd_cattaneo.pdf
-!/cattaneo/presentation/rdd_cattaneo.tex
-!/cattaneo/presentation/foundations_theory.tex
-!/cattaneo/presentation/foundations_application.tex
-!/cattaneo/presentation/extensions_theory.tex
-!/cattaneo/presentation/extensions_applications.tex
+!/cattaneo/presentation/slides.pdf
+!/cattaneo/presentation/slides.tex
 !/cattaneo/presentation/references.bib
 !/cattaneo/presentation/build.py
 !/cattaneo/presentation/build.cmd
 !/cattaneo/presentation/build_tables.py
-!/cattaneo/presentation/prepare_author_figures.py
+!/cattaneo/presentation/prepare_assets.py
+!/cattaneo/presentation/latexmkrc
 !/cattaneo/presentation/assets/
+!/cattaneo/presentation/foundations_theory.tex
+!/cattaneo/presentation/foundations_application.tex
+!/cattaneo/presentation/extensions_theory.tex
+!/cattaneo/presentation/extensions_applications.tex
 
 /cattaneo/presentation/assets/*
 !/cattaneo/presentation/assets/*.pdf
+!/cattaneo/presentation/assets/*.svg
+!/cattaneo/presentation/assets/*.png
+!/cattaneo/presentation/assets/*.jpg
 !/cattaneo/presentation/assets/*.tex
 !/cattaneo/presentation/assets/*.json
 
@@ -107,8 +94,19 @@
 !/cattaneo/exercises/run_all.do
 !/cattaneo/exercises/fetch_sources.py
 !/cattaneo/exercises/sources.lock.json
+!/cattaneo/exercises/data/
 !/cattaneo/exercises/modules/
 !/cattaneo/exercises/results/
+
+/cattaneo/exercises/data/*
+!/cattaneo/exercises/data/README.md
+!/cattaneo/exercises/data/CIT_2020_CUP_polecon.dta
+!/cattaneo/exercises/data/CIT_2024_CUP_locrand.dta
+!/cattaneo/exercises/data/CIT_2024_CUP_fuzzy.dta
+!/cattaneo/exercises/data/CIT_2024_CUP_discrete.dta
+!/cattaneo/exercises/data/CIT_2024_CUP_multicutoff.dta
+!/cattaneo/exercises/data/CIT_2024_CUP_multiscore-nongeo.dta
+!/cattaneo/exercises/data/CIT_2024_CUP_multiscore-geo.dta
 
 /cattaneo/exercises/modules/*
 !/cattaneo/exercises/modules/*.do
@@ -119,10 +117,13 @@
 !/cattaneo/exercises/results/*.pdf
 !/cattaneo/exercises/results/*.gph
 
-# Explicit privacy rules, in addition to the allowlist.
 /cattaneo/notes/
-/mixtape/presentation/notes/
 /cattaneo/exercises/cache/
+
+/presentation/
+/resources/
+/archive/
+/tmp/
 **/build/
 **/__pycache__/
 *.log

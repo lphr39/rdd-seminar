@@ -1,7 +1,7 @@
 * =====================================================================
 * HANSEN (2015): COMPLETE REGRESSION DISCONTINUITY EXERCISE
 * =====================================================================
-* Run this entire do-file from a fresh Stata 18 session.
+* Run exercises/run_all.do from a fresh Stata 18 session.
 * It combines hansen1.do, hansen2.do, and the outcome analysis in
 * Section 6.6 of Causal Inference: The Remix.
 *
@@ -35,52 +35,20 @@ capture log close
 * =====================================================================
 * 1. SETUP, PACKAGES, AND DATA
 * =====================================================================
-* Run directly in Stata; no launcher is required.
-* An already-correct working folder is used automatically.
-* Otherwise select this do-file in the file dialog to locate its folder.
-* Optional argument: project directory (not output directory).
-* do "E:/any/folder/hansen_seminar.do" "E:/any/folder"
-* All data, graphs, tables, and the log go into its hansen_results folder.
-
+* Run through ../run_all.do so the working directory and output paths agree.
+* The optional argument is the exercises directory, supplied by the wrapper.
 args project_dir
-if `"`project_dir'"' == "" {
-    capture confirm file "hansen_seminar.do"
-    if !_rc local project_dir `"`c(pwd)'"'
-    else {
-        * c(filename) refers to the dataset, not the running do-file.
-        * A file dialog returns the selected do-file's complete path.
-        capture macro drop HANSEN_SELECTED_DO
-        capture window fopen HANSEN_SELECTED_DO ///
-            "Select hansen_seminar.do to locate the exercise folder" ///
-            "Hansen seminar do-file|hansen_seminar.do" do
-        local selection_rc = _rc
-        local selected_file `"$HANSEN_SELECTED_DO"'
-        capture macro drop HANSEN_SELECTED_DO
-        if `selection_rc' | `"`selected_file'"' == "" {
-            display as error "No folder selected. Analysis has not started."
-            exit 601
-        }
-        local selected_file = subinstr(`"`selected_file'"', char(92), "/", .)
-        local last_slash = strrpos(`"`selected_file'"', "/")
-        local project_dir = substr(`"`selected_file'"', 1, `last_slash' - 1)
-    }
-}
-
-* Change to the dynamically supplied or selected folder before using paths.
+if `"`project_dir'"' == "" local project_dir `"`c(pwd)'"'
 cd `"`project_dir'"'
-confirm file "hansen_seminar.do"
+confirm file "run_all.do"
+confirm file "modules/01.do"
 local project_dir `"`c(pwd)'"'
 local project_dir = subinstr(`"`project_dir'"', char(92), "/", .)
-local output_dir `"`project_dir'/hansen_results"'
+local output_dir `"`project_dir'/results"'
+local data_dir `"`project_dir'/data"'
 capture mkdir `"`output_dir'"'
-capture cd `"`output_dir'"'
-local folder_rc = _rc
-if `folder_rc' {
-    display as error "Cannot access output folder: `output_dir'"
-    exit `folder_rc'
-}
-cd `"`project_dir'"'
-log using "`output_dir'/hansen_complete.log", text replace
+capture mkdir `"`data_dir'"'
+log using "`output_dir'/execution.log", text replace
 
 display as text "Exercise folder: `project_dir'"
 display as text "Output folder: `output_dir'"
@@ -113,10 +81,10 @@ which cmogram
 
 * Download the public data once; use the local copy on later runs.
 * Internet access is needed for the first download or missing packages.
-local data_url "https://raw.githubusercontent.com/scunning1975/causal-inference-class/master/hansen_dwi.dta"
-capture confirm file "`output_dir'/hansen_dwi.dta"
-if _rc copy "`data_url'" "`output_dir'/hansen_dwi.dta"
-use "`output_dir'/hansen_dwi.dta", clear
+local data_url "https://raw.githubusercontent.com/scunning1975/causal-inference-class/20143dee51505d827f572f444ac93ca9ca5e31da/hansen_dwi.dta"
+capture confirm file "`data_dir'/hansen_dwi.dta"
+if _rc copy "`data_url'" "`data_dir'/hansen_dwi.dta"
+use "`data_dir'/hansen_dwi.dta", clear
 
 confirm numeric variable bac1 recidivism male white aged acc
 describe bac1 recidivism male white aged acc

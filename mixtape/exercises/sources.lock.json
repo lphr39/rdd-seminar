@@ -1,0 +1,18 @@
+{
+  "retrieved": "2026-10-28",
+  "source_repository": "https://github.com/scunning1975/causal-inference-class",
+  "source_revision": "20143dee51505d827f572f444ac93ca9ca5e31da",
+  "license": "MIT (upstream repository)",
+  "files": [
+    {
+      "path": "data/hansen_dwi.dta",
+      "url": "https://raw.githubusercontent.com/scunning1975/causal-inference-class/20143dee51505d827f572f444ac93ca9ca5e31da/hansen_dwi.dta",
+      "sha256": "08158875811feeac8b4b92604efc1a90f5f2b8181144c2880c0f4fb60743ecd1"
+    },
+    {
+      "path": "data/LICENSE.txt",
+      "url": "https://raw.githubusercontent.com/scunning1975/causal-inference-class/20143dee51505d827f572f444ac93ca9ca5e31da/LICENSE",
+      "sha256": "b7f08ed5c7b8afde29524def01a30bdac5479b8dd70e4b75d7ed67fb44fc54e7"
+    }
+  ]
+}
